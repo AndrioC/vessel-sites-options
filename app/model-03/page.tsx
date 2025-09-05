@@ -1,15 +1,22 @@
 "use client";
 
+import type React from "react";
+
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import {
-  ArrowRight,
+  ChevronDown,
+  Menu,
+  X,
+  Smartphone,
   BarChart3,
   Users,
-  Smartphone,
-  TrendingUp,
   Zap,
+  TrendingUp,
   Shield,
   Instagram,
   Mail,
@@ -17,135 +24,214 @@ import {
 } from "lucide-react";
 
 export default function HomePage() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
+  });
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log("Form submitted:", formData);
+    // Aqui você pode adicionar a lógica de envio do formulário
+    alert("Mensagem enviada com sucesso! Entraremos em contato em breve.");
+    setFormData({ name: "", email: "", phone: "", message: "" });
+  };
+
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-amber-50/30">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
       {/* Header */}
-      <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200/50">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-gradient-to-br from-amber-500 to-amber-600 rounded-lg flex items-center justify-center">
-              <span className="text-slate-900 font-bold text-sm">V</span>
+      <header className="fixed top-0 w-full bg-white/95 backdrop-blur-md border-b border-slate-200 z-50 transition-all duration-300">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-2">
+              <div className="w-8 h-8 bg-gradient-to-br from-emerald-600 to-emerald-700 rounded-lg flex items-center justify-center">
+                <span className="text-white font-bold text-sm">V</span>
+              </div>
+              <span className="text-xl font-bold text-slate-800">VESSEL</span>
+              <Badge variant="secondary" className="text-xs">
+                SOLUTION
+              </Badge>
             </div>
-            <span className="font-bold text-xl text-slate-900">VESSEL</span>
-            <Badge variant="secondary" className="text-xs">
-              SOLUTION
-            </Badge>
+
+            <nav className="hidden md:flex items-center space-x-8">
+              <a
+                href="#inicio"
+                className="text-slate-600 hover:text-emerald-600 transition-colors"
+              >
+                Início
+              </a>
+              <a
+                href="#funcionalidades"
+                className="text-slate-600 hover:text-emerald-600 transition-colors"
+              >
+                Funcionalidades
+              </a>
+              <a
+                href="#beneficios"
+                className="text-slate-600 hover:text-emerald-600 transition-colors"
+              >
+                Benefícios
+              </a>
+              <a
+                href="#contato"
+                className="text-slate-600 hover:text-emerald-600 transition-colors"
+              >
+                Contato
+              </a>
+            </nav>
+
+            <div className="flex items-center space-x-4">
+              <Button
+                variant="outline"
+                className="hidden md:inline-flex bg-transparent"
+              >
+                LOGIN
+              </Button>
+              <button
+                className="md:hidden"
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+              >
+                {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+              </button>
+            </div>
           </div>
-          <Button
-            variant="outline"
-            className="border-amber-200 text-amber-700 hover:bg-amber-50 bg-transparent"
-          >
-            LOGIN
-          </Button>
+
+          {/* Mobile Menu */}
+          {isMenuOpen && (
+            <div className="md:hidden mt-4 pb-4 border-t border-slate-200">
+              <nav className="flex flex-col space-y-4 mt-4">
+                <a
+                  href="#inicio"
+                  className="text-slate-600 hover:text-emerald-600 transition-colors"
+                >
+                  Início
+                </a>
+                <a
+                  href="#funcionalidades"
+                  className="text-slate-600 hover:text-emerald-600 transition-colors"
+                >
+                  Funcionalidades
+                </a>
+                <a
+                  href="#beneficios"
+                  className="text-slate-600 hover:text-emerald-600 transition-colors"
+                >
+                  Benefícios
+                </a>
+                <a
+                  href="#contato"
+                  className="text-slate-600 hover:text-emerald-600 transition-colors"
+                >
+                  Contato
+                </a>
+                <Button variant="outline" className="w-fit bg-transparent">
+                  LOGIN
+                </Button>
+              </nav>
+            </div>
+          )}
         </div>
       </header>
 
-      <main>
+      <main className="pt-20">
         {/* Hero Section */}
-        <section className="py-20 lg:py-32 relative overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-amber-500/10 via-blue-500/5 to-slate-100/50"></div>
-          <div className="container mx-auto px-4 relative">
+        <section
+          id="inicio"
+          className="relative overflow-hidden bg-gradient-to-br from-emerald-600 via-emerald-700 to-emerald-800 text-white"
+        >
+          <div className="absolute inset-0 bg-[url('/abstract-geometric-pattern.png')] opacity-10"></div>
+          <div className="container mx-auto px-4 py-20 lg:py-32 relative">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <div className="space-y-8">
-                <div className="space-y-6">
-                  <Badge className="bg-amber-100 text-amber-800 border-amber-200">
-                    ✨ Gestão Inteligente
+              <div className="space-y-8 animate-fade-in">
+                <div className="space-y-4">
+                  <Badge className="bg-emerald-500/20 text-emerald-100 border-emerald-400/30">
+                    🚀 Transformação Digital
                   </Badge>
-                  <h1 className="text-4xl lg:text-6xl font-bold text-slate-900 leading-tight text-balance">
+                  <h1 className="text-4xl lg:text-6xl font-bold leading-tight text-balance">
                     TRANSFORME A
-                    <span className="text-transparent bg-gradient-to-r from-amber-600 to-amber-500 bg-clip-text">
-                      {" "}
-                      GESTÃO{" "}
+                    <span className="block text-emerald-200">
+                      GESTÃO DO SEU
                     </span>
-                    DO SEU SALÃO COM A VESSEL
+                    <span className="block">SALÃO COM A</span>
+                    <span className="block text-emerald-300">VESSEL</span>
                   </h1>
-                  <p className="text-xl text-slate-600 leading-relaxed text-pretty">
+                  <p className="text-xl text-emerald-100 leading-relaxed text-pretty">
                     Simplifique processos, aumente a produtividade e tenha total
                     controle com nossa plataforma de gestão inovadora.
                   </p>
                 </div>
+
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Button
                     size="lg"
-                    className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white shadow-lg"
+                    className="bg-white text-emerald-700 hover:bg-emerald-50 font-semibold"
                   >
                     Começar Agora
-                    <ArrowRight className="ml-2 h-5 w-5" />
                   </Button>
                   <Button
                     size="lg"
                     variant="outline"
-                    className="border-slate-300 text-slate-700 hover:bg-slate-50 bg-transparent"
+                    className="border-emerald-300 text-emerald-100 hover:bg-emerald-700 bg-transparent"
                   >
                     Ver Demonstração
                   </Button>
                 </div>
               </div>
-              <div className="relative">
-                <div className="relative z-10 space-y-4">
-                  <div className="bg-white rounded-2xl shadow-2xl p-6 transform rotate-3 hover:rotate-0 transition-transform duration-300">
-                    <div className="flex items-center space-x-3 mb-4">
-                      <div className="w-3 h-3 bg-red-400 rounded-full"></div>
-                      <div className="w-3 h-3 bg-yellow-400 rounded-full"></div>
-                      <div className="w-3 h-3 bg-green-400 rounded-full"></div>
-                    </div>
-                    <div className="space-y-3">
-                      <div className="h-4 bg-slate-200 rounded w-3/4"></div>
-                      <div className="h-4 bg-amber-200 rounded w-1/2"></div>
-                      <div className="h-4 bg-slate-200 rounded w-2/3"></div>
-                    </div>
-                  </div>
-                  <div className="bg-white rounded-2xl shadow-xl p-6 transform -rotate-2 hover:rotate-0 transition-transform duration-300 ml-8">
-                    <div className="flex items-center justify-between mb-4">
-                      <span className="text-sm font-medium text-slate-600">
-                        Agenda
-                      </span>
-                      <Badge className="bg-green-100 text-green-800">
-                        Online
-                      </Badge>
-                    </div>
-                    <div className="space-y-2">
-                      <div className="flex items-center space-x-2">
-                        <div className="w-2 h-2 bg-amber-500 rounded-full"></div>
-                        <span className="text-sm text-slate-700">
-                          14:00 - Corte + Barba
-                        </span>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                        <span className="text-sm text-slate-700">
-                          15:30 - Coloração
-                        </span>
-                      </div>
-                    </div>
-                  </div>
+
+              <div className="relative animate-slide-in-right">
+                <div className="relative z-10">
+                  <img
+                    src="/modern-smartphone-mockup-with-salon-management-app.jpg"
+                    alt="Vessel App Interface"
+                    className="w-full max-w-md mx-auto drop-shadow-2xl"
+                  />
                 </div>
-                <div className="absolute inset-0 bg-gradient-to-r from-amber-400/20 to-blue-400/20 rounded-3xl blur-3xl"></div>
+                <div className="absolute -top-4 -right-4 w-72 h-72 bg-emerald-400/20 rounded-full blur-3xl"></div>
+                <div className="absolute -bottom-4 -left-4 w-64 h-64 bg-emerald-300/20 rounded-full blur-3xl"></div>
               </div>
             </div>
+          </div>
+
+          <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <ChevronDown className="w-6 h-6 text-emerald-200" />
           </div>
         </section>
 
         {/* Features Section */}
-        <section className="py-20 bg-white">
+        <section id="funcionalidades" className="py-20 bg-white">
           <div className="container mx-auto px-4">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-4">
+            <div className="text-center mb-16 animate-fade-in">
+              <Badge className="mb-4 bg-emerald-100 text-emerald-700">
+                Funcionalidades
+              </Badge>
+              <h2 className="text-3xl lg:text-4xl font-bold text-slate-800 mb-4 text-balance">
                 A GESTÃO INTELIGENTE E SIMPLES QUE SEU NEGÓCIO PRECISA!
               </h2>
-              <p className="text-xl text-slate-600 max-w-3xl mx-auto text-pretty">
+              <p className="text-xl text-slate-600 text-pretty">
                 Conheça as funcionalidades da Vessel e veja como ela pode
-                agilizar ou otimizar cada processo do seu negócio.
+                otimizar cada processo do seu negócio.
               </p>
             </div>
 
             <div className="grid md:grid-cols-3 gap-8">
-              <Card className="group hover:shadow-xl transition-all duration-300 border-0 shadow-lg">
+              <Card className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border-0 shadow-lg">
                 <CardContent className="p-8 text-center">
-                  <div className="w-16 h-16 bg-gradient-to-br from-amber-500 to-amber-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                    <Users className="h-8 w-8 text-white" />
+                  <div className="w-16 h-16 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
+                    <Smartphone className="w-8 h-8 text-white" />
                   </div>
-                  <h3 className="text-xl font-bold text-slate-900 mb-4">
+                  <h3 className="text-xl font-bold text-slate-800 mb-4">
                     INTEGRAÇÃO COMPLETA
                   </h3>
                   <p className="text-slate-600 leading-relaxed">
@@ -154,12 +240,12 @@ export default function HomePage() {
                 </CardContent>
               </Card>
 
-              <Card className="group hover:shadow-xl transition-all duration-300 border-0 shadow-lg">
+              <Card className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border-0 shadow-lg">
                 <CardContent className="p-8 text-center">
-                  <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                    <BarChart3 className="h-8 w-8 text-white" />
+                  <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
+                    <BarChart3 className="w-8 h-8 text-white" />
                   </div>
-                  <h3 className="text-xl font-bold text-slate-900 mb-4">
+                  <h3 className="text-xl font-bold text-slate-800 mb-4">
                     RELATÓRIOS
                   </h3>
                   <p className="text-slate-600 leading-relaxed">
@@ -168,12 +254,12 @@ export default function HomePage() {
                 </CardContent>
               </Card>
 
-              <Card className="group hover:shadow-xl transition-all duration-300 border-0 shadow-lg">
+              <Card className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border-0 shadow-lg">
                 <CardContent className="p-8 text-center">
-                  <div className="w-16 h-16 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                    <Smartphone className="h-8 w-8 text-white" />
+                  <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
+                    <Users className="w-8 h-8 text-white" />
                   </div>
-                  <h3 className="text-xl font-bold text-slate-900 mb-4">
+                  <h3 className="text-xl font-bold text-slate-800 mb-4">
                     FÁCIL DE USAR
                   </h3>
                   <p className="text-slate-600 leading-relaxed">
@@ -185,66 +271,78 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Performance Section */}
-        <section className="py-20 bg-gradient-to-br from-slate-900 to-slate-800 text-white">
+        {/* Benefits Section */}
+        <section
+          id="beneficios"
+          className="py-20 bg-gradient-to-br from-slate-50 to-slate-100"
+        >
           <div className="container mx-auto px-4">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl lg:text-4xl font-bold mb-4">
+            <div className="text-center mb-16 animate-fade-in">
+              <Badge className="mb-4 bg-emerald-100 text-emerald-700">
+                Performance
+              </Badge>
+              <h2 className="text-3xl lg:text-4xl font-bold text-slate-800 mb-4 text-balance">
                 UM SISTEMA DE ALTA PERFORMANCE
+                <span className="block text-emerald-600">
+                  QUE ATENDE ÀS SUAS NECESSIDADES.
+                </span>
               </h2>
-              <p className="text-xl text-slate-300 mb-8">
-                QUE ATENDE AS SUAS NECESSIDADES.
-              </p>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-              <div className="bg-gradient-to-br from-amber-500/20 to-amber-600/10 rounded-2xl p-8 border border-amber-500/20">
-                <div className="flex items-center space-x-4 mb-4">
-                  <div className="w-12 h-12 bg-amber-500 rounded-xl flex items-center justify-center">
-                    <TrendingUp className="h-6 w-6 text-white" />
+            <div className="grid lg:grid-cols-3 gap-8">
+              <Card className="bg-gradient-to-br from-emerald-600 to-emerald-700 text-white border-0 shadow-xl hover:shadow-2xl transition-all duration-300">
+                <CardContent className="p-8">
+                  <div className="flex items-center mb-4">
+                    <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center mr-4">
+                      <TrendingUp className="w-6 h-6" />
+                    </div>
+                    <h3 className="text-xl font-bold">
+                      AUMENTO DE PRODUTIVIDADE
+                    </h3>
                   </div>
-                  <h3 className="text-xl font-bold">
-                    AUMENTO DE PRODUTIVIDADE
-                  </h3>
-                </div>
-                <p className="text-slate-300 leading-relaxed">
-                  Reduza tempo perdido com tarefas repetitivas e elimine a
-                  operação.
-                </p>
-              </div>
+                  <p className="text-emerald-100 leading-relaxed">
+                    Reduza tempo perdido com tarefas repetitivas e elimine a
+                    operação manual.
+                  </p>
+                </CardContent>
+              </Card>
 
-              <div className="bg-gradient-to-br from-blue-500/20 to-blue-600/10 rounded-2xl p-8 border border-blue-500/20">
-                <div className="flex items-center space-x-4 mb-4">
-                  <div className="w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center">
-                    <Zap className="h-6 w-6 text-white" />
+              <Card className="bg-gradient-to-br from-blue-600 to-blue-700 text-white border-0 shadow-xl hover:shadow-2xl transition-all duration-300">
+                <CardContent className="p-8">
+                  <div className="flex items-center mb-4">
+                    <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center mr-4">
+                      <Zap className="w-6 h-6" />
+                    </div>
+                    <h3 className="text-xl font-bold">GESTÃO CENTRALIZADA</h3>
                   </div>
-                  <h3 className="text-xl font-bold">GESTÃO CENTRALIZADA</h3>
-                </div>
-                <p className="text-slate-300 leading-relaxed">
-                  Tenha tudo o que você precisa em único lugar.
-                </p>
-              </div>
+                  <p className="text-blue-100 leading-relaxed">
+                    Tenha tudo o que você precisa em um único lugar.
+                  </p>
+                </CardContent>
+              </Card>
 
-              <div className="bg-gradient-to-br from-emerald-500/20 to-emerald-600/10 rounded-2xl p-8 border border-emerald-500/20">
-                <div className="flex items-center space-x-4 mb-4">
-                  <div className="w-12 h-12 bg-emerald-500 rounded-xl flex items-center justify-center">
-                    <Shield className="h-6 w-6 text-white" />
+              <Card className="bg-gradient-to-br from-purple-600 to-purple-700 text-white border-0 shadow-xl hover:shadow-2xl transition-all duration-300">
+                <CardContent className="p-8">
+                  <div className="flex items-center mb-4">
+                    <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center mr-4">
+                      <Shield className="w-6 h-6" />
+                    </div>
+                    <h3 className="text-xl font-bold">
+                      INTUITIVA E PERSONALIZÁVEL
+                    </h3>
                   </div>
-                  <h3 className="text-xl font-bold">
-                    INTUITIVA E PERSONALIZÁVEL
-                  </h3>
-                </div>
-                <p className="text-slate-300 leading-relaxed">
-                  A plataforma se adapta às suas necessidades de maneira fácil e
-                  rápida.
-                </p>
-              </div>
+                  <p className="text-purple-100 leading-relaxed">
+                    A plataforma se adapta às suas necessidades de maneira fácil
+                    e rápida.
+                  </p>
+                </CardContent>
+              </Card>
             </div>
 
             <div className="text-center mt-12">
               <Button
                 size="lg"
-                className="bg-white text-slate-900 hover:bg-slate-100"
+                className="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold"
               >
                 SAIBA MAIS SOBRE OS BENEFÍCIOS
               </Button>
@@ -252,34 +350,180 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Instagram Section */}
-        <section className="py-20 bg-blue-600 text-white">
-          <div className="container mx-auto px-4 text-center">
-            <h2 className="text-3xl lg:text-4xl font-bold mb-6 text-white">
-              VAMOS EMBARCAR NESSA!
-            </h2>
-            <p className="text-xl text-blue-50 mb-12">
-              Junte-se à nossa comunidade no Instagram!
-            </p>
+        {/* Contact Section */}
+        <section id="contato" className="py-20 bg-white">
+          <div className="container mx-auto px-4">
+            <div className="grid lg:grid-cols-2 gap-16 items-center">
+              <div className="space-y-8 animate-fade-in">
+                <div>
+                  <Badge className="mb-4 bg-emerald-100 text-emerald-700">
+                    Contato
+                  </Badge>
+                  <h2 className="text-3xl lg:text-4xl font-bold text-slate-800 mb-6 text-balance">
+                    Estamos com a versão beta no ar, e com ela
+                    <span className="block text-emerald-600">
+                      planos para atender seu negócio.
+                    </span>
+                  </h2>
+                  <p className="text-xl text-slate-600 mb-8 text-pretty">
+                    Quer saber mais? Entre em contato conosco e descubra como a
+                    Vessel pode transformar seu salão.
+                  </p>
+                </div>
 
-            <div className="max-w-md mx-auto">
+                <div className="space-y-4">
+                  <div className="flex items-center space-x-4">
+                    <div className="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center">
+                      <Mail className="w-6 h-6 text-emerald-600" />
+                    </div>
+                    <div>
+                      <p className="font-semibold text-slate-800">Email</p>
+                      <p className="text-slate-600">contato@vesselbr.com</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center space-x-4">
+                    <div className="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center">
+                      <Phone className="w-6 h-6 text-emerald-600" />
+                    </div>
+                    <div>
+                      <p className="font-semibold text-slate-800">Telefone</p>
+                      <p className="text-slate-600">(11) 99999-9999</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="relative">
+                  <img
+                    src="/business-growth-illustration-with-charts-and-graph.jpg"
+                    alt="Crescimento do negócio"
+                    className="w-full max-w-sm rounded-2xl shadow-lg"
+                  />
+                </div>
+              </div>
+
+              <Card className="shadow-xl border-0">
+                <CardContent className="p-8">
+                  <h3 className="text-2xl font-bold text-slate-800 mb-6">
+                    Entre em Contato
+                  </h3>
+                  <form onSubmit={handleSubmit} className="space-y-6">
+                    <div>
+                      <label
+                        htmlFor="name"
+                        className="block text-sm font-medium text-slate-700 mb-2"
+                      >
+                        Nome Completo
+                      </label>
+                      <Input
+                        id="name"
+                        name="name"
+                        type="text"
+                        required
+                        value={formData.name}
+                        onChange={handleInputChange}
+                        className="w-full"
+                        placeholder="Seu nome completo"
+                      />
+                    </div>
+
+                    <div>
+                      <label
+                        htmlFor="email"
+                        className="block text-sm font-medium text-slate-700 mb-2"
+                      >
+                        Email
+                      </label>
+                      <Input
+                        id="email"
+                        name="email"
+                        type="email"
+                        required
+                        value={formData.email}
+                        onChange={handleInputChange}
+                        className="w-full"
+                        placeholder="seu@email.com"
+                      />
+                    </div>
+
+                    <div>
+                      <label
+                        htmlFor="phone"
+                        className="block text-sm font-medium text-slate-700 mb-2"
+                      >
+                        Telefone
+                      </label>
+                      <Input
+                        id="phone"
+                        name="phone"
+                        type="tel"
+                        value={formData.phone}
+                        onChange={handleInputChange}
+                        className="w-full"
+                        placeholder="(11) 99999-9999"
+                      />
+                    </div>
+
+                    <div>
+                      <label
+                        htmlFor="message"
+                        className="block text-sm font-medium text-slate-700 mb-2"
+                      >
+                        Mensagem
+                      </label>
+                      <Textarea
+                        id="message"
+                        name="message"
+                        required
+                        value={formData.message}
+                        onChange={handleInputChange}
+                        className="w-full min-h-[120px]"
+                        placeholder="Conte-nos sobre seu salão e como podemos ajudar..."
+                      />
+                    </div>
+
+                    <Button
+                      type="submit"
+                      className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold"
+                    >
+                      Enviar Mensagem
+                    </Button>
+                  </form>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </section>
+
+        {/* Instagram CTA Section */}
+        <section className="py-20 bg-gradient-to-br from-emerald-600 to-emerald-800 text-white">
+          <div className="container mx-auto px-4 text-center">
+            <div className="max-w-3xl mx-auto space-y-8">
+              <Badge className="bg-emerald-500/20 text-emerald-100 border-emerald-400/30">
+                Redes Sociais
+              </Badge>
+              <h2 className="text-3xl lg:text-4xl font-bold text-balance">
+                VAMOS EMBARCAR NESSA!
+              </h2>
+              <p className="text-xl text-emerald-100 text-pretty">
+                Junte-se à nossa comunidade no Instagram e fique por dentro de
+                todas as novidades!
+              </p>
+
               <Button
                 size="lg"
-                className="bg-white text-blue-600 hover:bg-blue-50 mb-8 w-full"
+                className="bg-white text-emerald-700 hover:bg-emerald-50 font-semibold"
               >
-                <Instagram className="mr-2 h-5 w-5" />
+                <Instagram className="w-5 h-5 mr-2" />
                 VISITE NOSSO INSTAGRAM
               </Button>
 
-              <div className="bg-blue-700 rounded-2xl p-8 border border-blue-500">
+              <div className="mt-12">
                 <img
-                  src="/placeholder.svg?key=ktznv"
-                  alt="Vessel - Navegando rumo ao sucesso"
-                  className="w-full h-48 object-cover rounded-xl mb-4"
+                  src="/instagram-social-media-engagement-illustration.jpg"
+                  alt="Instagram"
+                  className="w-64 h-64 mx-auto rounded-2xl shadow-2xl"
                 />
-                <p className="text-blue-50 text-sm">
-                  Navegando rumo ao sucesso do seu negócio
-                </p>
               </div>
             </div>
           </div>
@@ -287,43 +531,99 @@ export default function HomePage() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-slate-900 text-white py-16">
+      <footer className="bg-slate-900 text-white py-12">
         <div className="container mx-auto px-4">
-          <div className="text-center space-y-8">
-            <div className="flex items-center justify-center space-x-2">
-              <div className="w-8 h-8 bg-gradient-to-br from-amber-500 to-amber-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">V</span>
-              </div>
-              <span className="font-bold text-xl">VESSEL</span>
-            </div>
-
-            <p className="text-slate-300 max-w-2xl mx-auto text-pretty">
-              A VESSEL É A ESCOLHA INTELIGENTE PARA O SEU NEGÓCIO NA ÁREA DA
-              BELEZA, QUE BUSCA CRESCER DE MANEIRA ORGANIZADA E EFICIENTE.
-            </p>
-
+          <div className="grid md:grid-cols-3 gap-8">
             <div className="space-y-4">
-              <h3 className="text-lg font-semibold">CONTATO</h3>
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-6 text-slate-300">
-                <div className="flex items-center space-x-2">
-                  <Mail className="h-5 w-5" />
-                  <span>CONTATO@VESSEL.COM</span>
+              <div className="flex items-center space-x-2">
+                <div className="w-8 h-8 bg-gradient-to-br from-emerald-600 to-emerald-700 rounded-lg flex items-center justify-center">
+                  <span className="text-white font-bold text-sm">V</span>
                 </div>
-                <div className="flex items-center space-x-2">
-                  <Phone className="h-5 w-5" />
-                  <span>+55 (11) 99999-9999</span>
-                </div>
+                <span className="text-xl font-bold">VESSEL</span>
               </div>
-            </div>
-
-            <div className="pt-8 border-t border-slate-800">
-              <p className="text-slate-400 text-sm">
-                ©2024 VESSEL SOLUTION TODOS OS DIREITOS RESERVADOS.
+              <p className="text-slate-400 text-pretty">
+                A VESSEL É A ESCOLHA INTELIGENTE PARA O SEU NEGÓCIO NA ÁREA DA
+                BELEZA, QUE BUSCA CRESCER DE MANEIRA ORGANIZADA E EFICIENTE.
               </p>
             </div>
+
+            <div className="space-y-4">
+              <h3 className="text-lg font-semibold">Contato</h3>
+              <div className="space-y-2 text-slate-400">
+                <p>📧 CONTATO@VESSELBR.COM</p>
+                <p>📱 (11) 99999-9999</p>
+                <p>📍 São Paulo, SP</p>
+              </div>
+            </div>
+
+            <div className="space-y-4">
+              <h3 className="text-lg font-semibold">Links Rápidos</h3>
+              <div className="space-y-2">
+                <a
+                  href="#inicio"
+                  className="block text-slate-400 hover:text-emerald-400 transition-colors"
+                >
+                  Início
+                </a>
+                <a
+                  href="#funcionalidades"
+                  className="block text-slate-400 hover:text-emerald-400 transition-colors"
+                >
+                  Funcionalidades
+                </a>
+                <a
+                  href="#beneficios"
+                  className="block text-slate-400 hover:text-emerald-400 transition-colors"
+                >
+                  Benefícios
+                </a>
+                <a
+                  href="#contato"
+                  className="block text-slate-400 hover:text-emerald-400 transition-colors"
+                >
+                  Contato
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div className="border-t border-slate-800 mt-8 pt-8 text-center text-slate-400">
+            <p>©2024 VESSEL SOLUTION TODOS OS DIREITOS RESERVADOS</p>
           </div>
         </div>
       </footer>
+
+      <style jsx>{`
+        @keyframes fade-in {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        @keyframes slide-in-right {
+          from {
+            opacity: 0;
+            transform: translateX(50px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+
+        .animate-fade-in {
+          animation: fade-in 0.8s ease-out;
+        }
+
+        .animate-slide-in-right {
+          animation: slide-in-right 0.8s ease-out;
+        }
+      `}</style>
     </div>
   );
 }
