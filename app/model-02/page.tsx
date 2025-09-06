@@ -57,7 +57,7 @@ export default function HomePage() {
           </div>
         </div>
         <motion.img
-          src="/mockup.png"
+          src="/vessel.jpg"
           alt="App Vessel"
           className="mt-10 md:mt-0 w-80 md:w-[30rem] drop-shadow-2xl rounded-xl"
           initial={{ opacity: 0, x: 60 }}

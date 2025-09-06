@@ -140,8 +140,11 @@ const Header: React.FC = () => {
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center space-x-2">
-            <Zap className="h-8 w-8 text-indigo-600" />
-            <span className="text-2xl font-bold text-gray-900">VESSEL</span>
+            <img
+              src="/logo-no-name-black.svg"
+              alt="VESSEL Logo"
+              className="h-15 w-auto"
+            />
           </div>
 
           {/* Desktop Navigation */}
@@ -251,7 +254,8 @@ const Hero: React.FC = () => {
         <div className="w-full h-full bg-gradient-to-br from-white/5 to-transparent"></div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      {/* Conteúdo com z-10 */}
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div className="space-y-8 animate-in slide-in-from-left duration-1000">
             <h1 className="text-5xl md:text-7xl font-black leading-tight">
@@ -271,7 +275,7 @@ const Hero: React.FC = () => {
 
             <Button
               size="lg"
-              className="bg-white text-indigo-600 hover:bg-gray-100 text-lg px-8 py-6 rounded-full font-bold shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:-translate-y-1"
+              className="bg-gradient-to-r cursor-pointer from-yellow-400 to-orange-500 text-white hover:from-yellow-500 hover:to-orange-600 text-lg px-8 py-6 rounded-full font-bold shadow-2xl hover:shadow-3xl"
               onClick={() =>
                 document
                   .getElementById("contato")
@@ -471,9 +475,12 @@ const Footer: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid md:grid-cols-3 gap-12">
           <div>
-            <div className="flex items-center space-x-2 mb-4">
-              <Zap className="h-8 w-8 text-indigo-400" />
-              <span className="text-2xl font-bold">VESSEL</span>
+            <div className="mb-4">
+              <img
+                src="/logo-white.svg"
+                alt="VESSEL Logo"
+                className="h-16 w-auto"
+              />
             </div>
             <p className="text-gray-400 leading-relaxed">
               A Vessel é especializada no desenvolvimento de soluções na área da
@@ -510,9 +517,7 @@ const Footer: React.FC = () => {
 // Main App Component
 const VesselApp: React.FC = () => {
   useEffect(() => {
-    // Add smooth scrolling behavior
     document.documentElement.style.scrollBehavior = "smooth";
-
     return () => {
       document.documentElement.style.scrollBehavior = "auto";
     };

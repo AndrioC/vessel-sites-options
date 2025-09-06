@@ -182,8 +182,11 @@ const Header: React.FC = () => {
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center space-x-2">
-            <Zap className="h-8 w-8 text-emerald-600" />
-            <span className="text-2xl font-bold text-gray-900">VESSEL</span>
+            <img
+              src="/logo-no-name-black.svg"
+              alt="VESSEL Logo"
+              className="h-15 w-auto"
+            />
           </div>
 
           {/* Desktop Navigation */}
@@ -756,9 +759,12 @@ const Footer: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid md:grid-cols-3 gap-12">
           <div>
-            <div className="flex items-center space-x-2 mb-4">
-              <Zap className="h-8 w-8 text-emerald-400" />
-              <span className="text-2xl font-bold">VESSEL</span>
+            <div className="flex items-center space-x-2">
+              <img
+                src="/logo-white.svg"
+                alt="VESSEL Logo"
+                className="h-15 w-auto"
+              />
             </div>
             <p className="text-gray-400 leading-relaxed">
               A Vessel é especializada no desenvolvimento de soluções na área da

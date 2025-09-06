@@ -193,11 +193,12 @@ export default function HomePage() {
               <div className="relative animate-slide-in-right">
                 <div className="relative z-10">
                   <img
-                    src="/modern-smartphone-mockup-with-salon-management-app.jpg"
+                    src="/app-image.png"
                     alt="Vessel App Interface"
-                    className="w-full max-w-md mx-auto drop-shadow-2xl"
+                    className="w-full max-w-xl lg:max-w-2xl mx-auto drop-shadow-2xl"
                   />
                 </div>
+
                 <div className="absolute -top-4 -right-4 w-72 h-72 bg-emerald-400/20 rounded-full blur-3xl"></div>
                 <div className="absolute -bottom-4 -left-4 w-64 h-64 bg-emerald-300/20 rounded-full blur-3xl"></div>
               </div>
@@ -536,10 +537,11 @@ export default function HomePage() {
           <div className="grid md:grid-cols-3 gap-8">
             <div className="space-y-4">
               <div className="flex items-center space-x-2">
-                <div className="w-8 h-8 bg-gradient-to-br from-emerald-600 to-emerald-700 rounded-lg flex items-center justify-center">
-                  <span className="text-white font-bold text-sm">V</span>
-                </div>
-                <span className="text-xl font-bold">VESSEL</span>
+                <img
+                  src="/logo-white.svg"
+                  alt="VESSEL Logo"
+                  className="h-15 w-auto"
+                />
               </div>
               <p className="text-slate-400 text-pretty">
                 A VESSEL É A ESCOLHA INTELIGENTE PARA O SEU NEGÓCIO NA ÁREA DA
@@ -588,7 +590,10 @@ export default function HomePage() {
           </div>
 
           <div className="border-t border-slate-800 mt-8 pt-8 text-center text-slate-400">
-            <p>©2024 VESSEL SOLUTION TODOS OS DIREITOS RESERVADOS</p>
+            <p>
+              © {new Date().getFullYear()} Vessel Solution. Todos os direitos
+              reservados.
+            </p>
           </div>
         </div>
       </footer>

@@ -102,17 +102,12 @@ export default function HomePage() {
       <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-xl border-b border-slate-200/60 shadow-sm">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-amber-500 via-amber-600 to-orange-500 rounded-xl flex items-center justify-center shadow-lg">
-              <span className="text-slate-900 font-bold text-lg">V</span>
-            </div>
-            <div>
-              <span className="font-bold text-2xl text-slate-900">VESSEL</span>
-              <Badge
-                variant="secondary"
-                className="ml-2 text-xs bg-amber-100 text-amber-800 border-amber-200"
-              >
-                SOLUTION
-              </Badge>
+            <div className="flex items-center space-x-2">
+              <img
+                src="/logo-no-name-black.svg"
+                alt="VESSEL Logo"
+                className="h-15 w-auto"
+              />
             </div>
           </div>
           <Button
@@ -630,11 +625,13 @@ export default function HomePage() {
         <div className="container mx-auto px-4">
           <div className="text-center space-y-10 scroll-animate fade-up">
             <div className="flex items-center justify-center space-x-3">
-              <div className="w-12 h-12 bg-gradient-to-br from-amber-500 via-orange-500 to-amber-600 rounded-2xl flex items-center justify-center shadow-lg">
-                <span className="text-white font-bold text-xl">V</span>
+              <div className="flex items-center space-x-2">
+                <img
+                  src="/logo-white.svg"
+                  alt="VESSEL Logo"
+                  className="h-15 w-auto"
+                />
               </div>
-              <span className="font-bold text-3xl">VESSEL</span>
-              <Badge className="bg-amber-100 text-amber-800">SOLUTION</Badge>
             </div>
 
             <p className="text-slate-300 max-w-3xl mx-auto text-pretty text-lg leading-relaxed">

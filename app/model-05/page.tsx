@@ -219,17 +219,12 @@ export default function HomePage() {
       <header className="fixed top-0 z-50 w-full bg-white/80 backdrop-blur-2xl border-b border-slate-200/60 shadow-xl">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center space-x-4">
-            <div className="w-12 h-12 bg-gradient-to-br from-amber-500 via-orange-500 to-amber-600 rounded-2xl flex items-center justify-center shadow-2xl glow-effect floating">
-              <span className="text-white font-bold text-xl">V</span>
-            </div>
-            <div>
-              <span className="font-bold text-3xl text-slate-900 gradient-text">
-                VESSEL
-              </span>
-              <Badge className="ml-3 bg-gradient-to-r from-amber-100 to-orange-100 text-amber-800 border-amber-200 shadow-lg">
-                <Sparkles className="w-3 h-3 mr-1" />
-                SOLUTION
-              </Badge>
+            <div className="flex items-center space-x-2">
+              <img
+                src="/logo-no-name-black.svg"
+                alt="VESSEL Logo"
+                className="h-15 w-auto"
+              />
             </div>
           </div>
           <Button className="bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 px-6 py-3">
@@ -885,17 +880,12 @@ export default function HomePage() {
         <div className="container mx-auto px-4 relative">
           <div className="text-center space-y-10 scroll-animate fade-up">
             <div className="flex items-center justify-center space-x-4 group">
-              <div className="w-14 h-14 bg-gradient-to-br from-amber-500 via-orange-500 to-amber-600 rounded-2xl flex items-center justify-center shadow-2xl floating group-hover:scale-110 transition-transform duration-500">
-                <span className="text-white font-black text-xl">V</span>
-              </div>
-              <div className="flex items-center space-x-3">
-                <span className="font-black text-3xl gradient-text">
-                  VESSEL
-                </span>
-                <Badge className="bg-gradient-to-r from-amber-100 to-orange-100 text-amber-800 text-sm px-3 py-1 shadow-lg">
-                  <Award className="w-3 h-3 mr-1" />
-                  SOLUTION
-                </Badge>
+              <div className="flex items-center space-x-2">
+                <img
+                  src="/logo-white.svg"
+                  alt="VESSEL Logo"
+                  className="h-15 w-auto"
+                />
               </div>
             </div>
 
