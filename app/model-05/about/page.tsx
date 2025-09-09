@@ -325,7 +325,7 @@ export default function AboutPage() {
                 soluções para os desafios de gestão dos nossos clientes.
               </p>
               <p className="text-xl md:text-2xl font-bold text-amber-600 mt-4 md:mt-6">
-                "Somos membros de 1 empresa"
+                &quot;Somos membros de 1 empresa&quot;
               </p>
             </div>
 
