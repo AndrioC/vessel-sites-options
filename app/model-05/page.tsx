@@ -1,10 +1,15 @@
 "use client";
 
+import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
+import Link from "next/link";
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+
 import {
   ArrowRight,
   BarChart3,
@@ -27,56 +32,42 @@ import {
   Award,
   Rocket,
   InstagramIcon,
+  Menu,
+  X,
 } from "lucide-react";
-import { useEffect, useState } from "react";
-
-import Link from "next/link";
 
 export default function HomePage() {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    const onResize = () => {
+      if (window.innerWidth >= 768) setIsMobileMenuOpen(false);
     };
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
 
-    window.addEventListener("mousemove", handleMouseMove);
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("animate-in");
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
 
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: "0px 0px -50px 0px",
-    };
+    const elements = document.querySelectorAll(".scroll-animate");
+    elements.forEach((el) => observer.observe(el));
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("animate-in");
-        }
-      });
-    }, observerOptions);
-
-    const animateElements = document.querySelectorAll(".scroll-animate");
-    animateElements.forEach((el) => observer.observe(el));
-
-    // Parallax effects
-    const handleScroll = () => {
-      const scrolled = window.pageYOffset;
-      const parallaxElements = document.querySelectorAll(".parallax");
-      parallaxElements.forEach((element) => {
-        const htmlElement = element as HTMLElement;
-        const speed = htmlElement.dataset.speed || "0.1";
-        const yPos = -(scrolled * Number.parseFloat(speed));
-        htmlElement.style.transform = `translateY(${yPos}px)`;
-      });
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      observer.disconnect();
-      window.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("scroll", handleScroll);
-    };
+    return () => observer.disconnect();
   }, []);
 
   return (
@@ -85,17 +76,13 @@ export default function HomePage() {
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div
           className="absolute w-1 h-1 bg-amber-400 rounded-full opacity-60 transition-all duration-1000"
-          style={{
-            left: mousePosition.x,
-            top: mousePosition.y,
-            transform: "translate(-50%, -50%)",
-          }}
-        ></div>
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-br from-amber-400/5 to-orange-400/5 rounded-full blur-3xl animate-pulse"></div>
+          style={{ transform: "translate(-50%, -50%)" }}
+        />
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-br from-amber-400/5 to-orange-400/5 rounded-full blur-3xl animate-pulse" />
         <div
           className="absolute bottom-1/3 right-1/4 w-80 h-80 bg-gradient-to-br from-blue-400/5 to-purple-400/5 rounded-full blur-3xl animate-pulse"
           style={{ animationDelay: "2s" }}
-        ></div>
+        />
       </div>
 
       <style jsx global>{`
@@ -133,28 +120,22 @@ export default function HomePage() {
           transform: translateY(30px);
           transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
-
         .scroll-animate.animate-in {
           opacity: 1;
           transform: translateY(0);
         }
-
         .scroll-animate.fade-up {
           transform: translateY(40px);
         }
-
         .scroll-animate.fade-left {
           transform: translateX(-40px) translateY(0);
         }
-
         .scroll-animate.fade-right {
           transform: translateX(40px) translateY(0);
         }
-
         .scroll-animate.scale-up {
           transform: scale(0.95) translateY(0);
         }
-
         .scroll-animate.animate-in.scale-up {
           transform: scale(1) translateY(0);
         }
@@ -215,21 +196,19 @@ export default function HomePage() {
           animation: shimmer 3s infinite;
         }
 
-        /* Fixed hover animations that don't affect layout */
+        /* Hover animations que não afetam layout */
         .hover-lift {
           transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
         .hover-lift:hover {
           transform: translateY(-4px);
         }
-
         .hover-scale {
           transition: transform 0.3s ease;
         }
         .hover-scale:hover {
           transform: scale(1.02);
         }
-
         .hover-rotate {
           transition: transform 0.3s ease;
         }
@@ -238,19 +217,22 @@ export default function HomePage() {
         }
       `}</style>
 
-      {/* Enhanced Header */}
-      <header className="fixed top-0 z-50 w-full bg-white backdrop-blur-2xl border-b border-slate-200/60 shadow-xl">
+      {/* HEADER */}
+      <header className="fixed top-0 z-[120] w-full bg-white/95 backdrop-blur-2xl border-b border-slate-200/60 shadow-xl">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center space-x-4">
-            <div className="flex items-center space-x-2">
+          {/* Logo */}
+          <div className="flex items-center space-x-3">
+            <Link href="/" className="flex items-center">
               <img
                 src="/logo-no-name-black.svg"
                 alt="VESSEL Logo"
-                className="h-15 w-auto"
+                className="h-12 w-auto"
+                draggable={false}
               />
-            </div>
+            </Link>
           </div>
 
+          {/* Navegação desktop */}
           <nav className="hidden md:flex items-center space-x-8">
             <Link
               href="/model-05/about"
@@ -260,56 +242,124 @@ export default function HomePage() {
                 <Users className="w-4 h-4 mr-2 text-amber-600/80" />
                 Sobre nós
               </span>
-
-              {/* Efeito de brilho sutil no estado normal */}
-              <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-amber-400/5 to-orange-400/3 opacity-60"></div>
-
-              {/* Efeito de hover */}
-              <div className="absolute inset-0 bg-gradient-to-r from-amber-500/8 to-orange-500/6 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-
-              {/* Borda gradiente no hover */}
-              <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-px">
+              <div className="pointer-events-none absolute inset-0 rounded-xl bg-gradient-to-r from-amber-400/5 to-orange-400/3 opacity-60" />
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-amber-500/8 to-orange-500/6 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="pointer-events-none absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-px">
                 <div className="absolute inset-0 bg-gradient-to-r from-amber-400/40 to-orange-500/40 rounded-xl"></div>
                 <div className="absolute inset-px bg-gradient-to-br from-slate-50 to-slate-100/70 rounded-[11px]"></div>
               </div>
             </Link>
           </nav>
 
-          <Button className="bg-amber-600 hover:bg-amber-700 text-white shadow-xl hover:shadow-2xl hover-scale transition-all duration-300 px-6 py-3">
+          {/* Botão Login (desktop) */}
+          <Button className="cursor-pointer hidden md:inline-flex bg-amber-600 hover:bg-amber-700 text-white shadow-xl hover:shadow-2xl transition-all duration-300 px-6 py-3">
             <Rocket className="w-4 h-4 mr-2" />
             LOGIN
           </Button>
+
+          {/* Botão hamburger (MOBILE) */}
+          <button
+            type="button"
+            className="md:hidden p-2 rounded-lg hover:bg-slate-100 transition-colors duration-200 z-[140] relative"
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsMobileMenuOpen((v) => {
+                return !v;
+              });
+            }}
+            aria-label="Abrir menu móvel"
+            aria-controls="mobile-menu"
+            aria-expanded={isMobileMenuOpen}
+          >
+            {isMobileMenuOpen ? (
+              <X className="w-6 h-6 text-slate-700" />
+            ) : (
+              <Menu className="w-6 h-6 text-slate-700" />
+            )}
+          </button>
         </div>
       </header>
+
+      {/* PORTAL do menu mobile (fora do header) */}
+      {mounted &&
+        createPortal(
+          <>
+            <div
+              className={`md:hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-[130] transition-opacity duration-300 ${
+                isMobileMenuOpen
+                  ? "opacity-100 pointer-events-auto"
+                  : "opacity-0 pointer-events-none"
+              }`}
+              onClick={() => {
+                setIsMobileMenuOpen(false);
+              }}
+            />
+
+            <aside
+              id="mobile-menu"
+              className={`md:hidden fixed top-0 right-0 h-dvh w-80 max-w-[85vw] bg-white/95 backdrop-blur-md shadow-2xl z-[140] transition-transform duration-500 ease-in-out ${
+                isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
+              }`}
+              role="dialog"
+              aria-modal="true"
+              aria-label="Menu móvel"
+            >
+              <div className="flex items-center justify-between p-5 border-b border-slate-200/60">
+                <span className="text-slate-700 font-semibold">Menu</span>
+                <button
+                  type="button"
+                  className="p-2 rounded-lg hover:bg-slate-100"
+                  onClick={() => {
+                    setIsMobileMenuOpen(false);
+                  }}
+                  aria-label="Fechar menu móvel"
+                >
+                  <X className="w-6 h-6 text-slate-700" />
+                </button>
+              </div>
+
+              <div className="p-6 space-y-4">
+                <Link
+                  href="/model-05/about"
+                  className="flex items-center space-x-3 p-4 rounded-xl bg-gradient-to-br from-slate-50 to-slate-100/70 shadow-sm border border-slate-200/60 hover:border-amber-200/50 hover:shadow-md transition-all duration-300"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  <Users className="w-5 h-5 text-amber-600/80" />
+                  <span className="text-slate-700 font-medium">Sobre nós</span>
+                </Link>
+
+                <Button
+                  className="w-full bg-amber-600 hover:bg-amber-700 text-white shadow-xl hover:shadow-2xl transition-all duration-300 px-6 py-4 text-lg"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  <Rocket className="w-5 h-5 mr-2" />
+                  LOGIN
+                </Button>
+              </div>
+            </aside>
+          </>,
+          document.body
+        )}
 
       <main className="relative">
         {/* Enhanced Hero Section */}
         <section className="py-32 lg:py-48 relative overflow-hidden">
           {/* Enhanced background effects */}
           <div className="absolute inset-0">
-            <div
-              className="absolute top-20 left-10 w-96 h-96 bg-gradient-to-br from-amber-400/15 to-orange-400/10 rounded-full blur-3xl parallax"
-              data-speed="0.3"
-            ></div>
-            <div
-              className="absolute bottom-20 right-10 w-[500px] h-[500px] bg-gradient-to-br from-blue-400/10 to-purple-400/8 rounded-full blur-3xl parallax"
-              data-speed="0.5"
-            ></div>
-            <div
-              className="absolute top-1/2 left-1/2 w-80 h-80 bg-gradient-to-br from-emerald-400/8 to-teal-400/8 rounded-full blur-3xl parallax"
-              data-speed="0.4"
-            ></div>
+            <div className="absolute top-20 left-10 w-96 h-96 bg-gradient-to-br from-amber-400/15 to-orange-400/10 rounded-full blur-3xl"></div>
+            <div className="absolute bottom-20 right-10 w-[500px] h-[500px] bg-gradient-to-br from-blue-400/10 to-purple-400/8 rounded-full blur-3xl"></div>
+            <div className="absolute top-1/2 left-1/2 w-80 h-80 bg-gradient-to-br from-emerald-400/8 to-teal-400/8 rounded-full blur-3xl"></div>
           </div>
 
           <div className="container mx-auto px-4 relative">
             <div className="grid lg:grid-cols-2 gap-20 items-center">
               <div className="space-y-12">
                 <div className="space-y-10">
-                  <Badge className="bg-gradient-to-r from-amber-100 via-orange-100 to-amber-100 text-amber-800 border-amber-200 px-6 py-3 text-base font-semibold scroll-animate stagger-1 shadow-lg">
+                  <Badge className="bg-gradient-to-r from-amber-100 via-orange-100 to-amber-100 text-amber-800 border-amber-200 px-6 py-3 text-base font-semibold shadow-lg animate-fadeInUp [animation-delay:0.1s]">
                     ✨ Revolução na Gestão de Salões
                   </Badge>
 
-                  <h1 className="text-5xl lg:text-7xl font-black text-slate-900 leading-tight scroll-animate fade-up stagger-2">
+                  <h1 className="text-5xl lg:text-7xl font-black text-slate-900 leading-tight animate-fadeInUp [animation-delay:0.3s]">
                     TRANSFORME
                     <br />
                     <span className="relative">
@@ -320,7 +370,7 @@ export default function HomePage() {
                     COM VESSEL
                   </h1>
 
-                  <p className="text-xl lg:text-2xl text-slate-600 leading-relaxed font-light scroll-animate fade-up stagger-3">
+                  <p className="text-xl lg:text-2xl text-slate-600 leading-relaxed font-light animate-fadeInUp [animation-delay:0.5s]">
                     A plataforma de gestão mais{" "}
                     <strong className="text-amber-600">inovadora</strong> e{" "}
                     <strong className="text-orange-600">intuitiva</strong> do
@@ -328,10 +378,11 @@ export default function HomePage() {
                   </p>
                 </div>
 
-                <div className="flex flex-col sm:flex-row gap-6 scroll-animate fade-up stagger-4">
+                <div className="flex flex-col sm:flex-row gap-6 animate-fadeInUp [animation-delay:0.7s]">
                   <Button
                     size="lg"
-                    className="cursor-pointer bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:from-amber-600 hover:via-orange-600 hover:to-amber-700 text-white shadow-2xl hover:shadow-3xl hover-scale transition-all duration-500 px-10 py-6 text-lg rounded-2xl group"
+                    className="cursor-pointer !bg-amber-700 hover:!bg-amber-800 text-white font-bold shadow-2xl hover:shadow-3xl hover-scale transition-all duration-500 px-10 py-6 text-lg rounded-2xl group border-0"
+                    style={{ backgroundColor: "#b45309", color: "#ffffff" }}
                   >
                     <Sparkles className="mr-3 h-5 w-5 group-hover:rotate-180 transition-transform duration-500" />
                     Começar Agora
@@ -340,7 +391,7 @@ export default function HomePage() {
                   <Button
                     size="lg"
                     variant="outline"
-                    className="cursor-pointer border-3 border-slate-300 text-slate-700 hover:bg-slate-50 bg-white/90 backdrop-blur-sm shadow-2xl hover:shadow-3xl transition-all duration-500 px-10 py-6 text-lg rounded-2xl group"
+                    className="cursor-pointer border-2 border-slate-400 text-slate-800 hover:bg-slate-100 bg-white shadow-2xl hover:shadow-3xl transition-all duration-500 px-10 py-6 text-lg rounded-2xl group font-semibold"
                   >
                     <Globe className="mr-3 h-5 w-5 group-hover:scale-110 transition-transform duration-300" />
                     Ver Demo
@@ -349,7 +400,7 @@ export default function HomePage() {
               </div>
 
               {/* Enhanced mockup section */}
-              <div className="relative scroll-animate fade-left scale-up stagger-3">
+              <div className="relative animate-fadeInLeft [animation-delay:1s]">
                 <div className="relative z-10 space-y-8">
                   {/* Main dashboard mockup */}
                   <div className="bg-white/95 backdrop-blur-lg rounded-3xl shadow-2xl p-8 hover-rotate hover-lift transition-all duration-700 border border-slate-200 floating">
@@ -519,10 +570,7 @@ export default function HomePage() {
           <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-indigo-900">
             <div className="absolute top-20 left-20 w-96 h-96 bg-gradient-to-br from-amber-400/20 to-orange-500/15 rounded-full blur-3xl floating"></div>
             <div className="absolute bottom-20 right-20 w-[500px] h-[500px] bg-gradient-to-br from-blue-400/15 to-purple-500/20 rounded-full blur-3xl floating-delayed"></div>
-            <div
-              className="absolute top-1/2 left-1/2 w-80 h-80 bg-gradient-to-br from-emerald-400/10 to-teal-500/15 rounded-full blur-3xl parallax"
-              data-speed="0.3"
-            ></div>
+            <div className="absolute top-1/2 left-1/2 w-80 h-80 bg-gradient-to-br from-emerald-400/10 to-teal-500/15 rounded-full blur-3xl"></div>
           </div>
 
           <div className="container mx-auto px-4 relative">
@@ -692,133 +740,135 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="py-32 bg-gradient-to-br from-white via-slate-50/80 to-amber-50/20 relative">
+        <section className="py-32 bg-gradient-to-br from-white via-slate-50/80 to-amber-50/40 relative overflow-hidden">
           <div className="container mx-auto px-4">
-            <div className="text-center mb-24 scroll-animate fade-up">
-              <Badge className="bg-gradient-to-r from-slate-100 to-slate-200 text-slate-700 mb-8 px-6 py-3 text-base shadow-lg">
-                <Zap className="w-4 h-4 mr-2" />
-                Funcionalidades Completas
-              </Badge>
-              <h2 className="text-4xl lg:text-6xl font-black text-slate-900 mb-8">
-                FUNCIONALIDADES
-                <br />
-                <span className="gradient-text">COMPLETAS</span>
-              </h2>
-            </div>
+            <div className="max-w-8xl mx-auto">
+              <div className="text-center mb-20 scroll-animate fade-up">
+                <Badge className="bg-gradient-to-r from-amber-100 to-orange-100 text-amber-800 mb-8 px-6 py-3 text-base shadow-lg">
+                  <Zap className="w-4 h-4 mr-2" />
+                  Funcionalidades Completas
+                </Badge>
+                <h2 className="text-4xl lg:text-6xl font-black text-slate-900 mb-8">
+                  FUNCIONALIDADES
+                  <br />
+                  <span className="gradient-text">COMPLETAS</span>
+                </h2>
+              </div>
 
-            {/* Primeira linha de funcionalidades */}
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16 max-w-7xl mx-auto">
-              {[
-                {
-                  title: "Agenda",
-                  description:
-                    "Mais funções e personalização para facilitar e agilizar sua rotina de agendamentos. Nosso sistema foi projetado para simplificar o processo, garantindo que você tenha mais controle e eficiência no gerenciamento dos seus compromissos.",
-                  icon: Calendar,
-                  gradient: "from-amber-500 to-orange-600",
-                  bgGradient: "from-amber-50 to-orange-50",
-                  delay: "stagger-1",
-                },
-                {
-                  title: "Comunicação com o Cliente",
-                  description:
-                    "Nossa plataforma permite a automatização de mensagens, oferecendo uma comunicação direta e prática com seus clientes via WhatsApp. Isso fortalece o relacionamento e mantém o cliente sempre informado.",
-                  icon: Smartphone,
-                  gradient: "from-blue-500 to-indigo-600",
-                  bgGradient: "from-blue-50 to-indigo-50",
-                  delay: "stagger-2",
-                },
-                {
-                  title: "Estoque e Produtos",
-                  description:
-                    "Controle total e personalizado da gestão de estoque, com monitoramento de entradas, saídas e consumo. Utilizamos relatórios técnicos como Kardex, curva ABC, inventários e giro de estoque, além de auditorias que garantem uma visão detalhada do seu estoque.",
-                  icon: BarChart3,
-                  gradient: "from-emerald-500 to-teal-600",
-                  bgGradient: "from-emerald-50 to-teal-50",
-                  delay: "stagger-3",
-                },
-                {
-                  title: "Serviços",
-                  description:
-                    "Funções exclusivas para a construção de tabelas de preços, permitindo análises completas de faturamento e custos, garantindo uma visão precisa e otimizada dos serviços oferecidos.",
-                  icon: Award,
-                  gradient: "from-purple-500 to-violet-600",
-                  bgGradient: "from-purple-50 to-violet-50",
-                  delay: "stagger-4",
-                },
-              ].map((funcionalidade, index) => (
-                <Card
-                  key={index}
-                  className={`group hover:shadow-3xl hover-lift transition-all duration-700 border-0 shadow-xl bg-gradient-to-br ${funcionalidade.bgGradient} scroll-animate fade-up ${funcionalidade.delay} relative overflow-hidden`}
-                >
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                  <CardContent className="p-8 text-center relative">
-                    <div
-                      className={`w-16 h-16 bg-gradient-to-br ${funcionalidade.gradient} rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 group-hover:rotate-12 transition-all duration-700 shadow-2xl floating`}
-                    >
-                      <funcionalidade.icon className="h-8 w-8 text-white" />
-                    </div>
-                    <h3 className="text-xl font-black text-slate-900 mb-4">
-                      {funcionalidade.title}
-                    </h3>
-                    <p className="text-slate-600 leading-relaxed text-sm">
-                      {funcionalidade.description}
-                    </p>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
+              {/* Primeira linha de funcionalidades */}
+              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16 max-w-7xl mx-auto">
+                {[
+                  {
+                    title: "Agenda",
+                    description:
+                      "Mais funções e personalização para facilitar e agilizar sua rotina de agendamentos. Nosso sistema foi projetado para simplificar o processo, garantindo que você tenha mais controle e eficiência no gerenciamento dos seus compromissos.",
+                    icon: Calendar,
+                    gradient: "from-amber-500 to-orange-600",
+                    bgGradient: "from-amber-50 to-orange-50",
+                    delay: "stagger-1",
+                  },
+                  {
+                    title: "Comunicação com o Cliente",
+                    description:
+                      "Nossa plataforma permite a automatização de mensagens, oferecendo uma comunicação direta e prática com seus clientes via WhatsApp. Isso fortalece o relacionamento e mantém o cliente sempre informado.",
+                    icon: Smartphone,
+                    gradient: "from-blue-500 to-indigo-600",
+                    bgGradient: "from-blue-50 to-indigo-50",
+                    delay: "stagger-2",
+                  },
+                  {
+                    title: "Estoque e Produtos",
+                    description:
+                      "Controle total e personalizado da gestão de estoque, com monitoramento de entradas, saídas e consumo. Utilizamos relatórios técnicos como Kardex, curva ABC, inventários e giro de estoque, além de auditorias que garantem uma visão detalhada do seu estoque.",
+                    icon: BarChart3,
+                    gradient: "from-emerald-500 to-teal-600",
+                    bgGradient: "from-emerald-50 to-teal-50",
+                    delay: "stagger-3",
+                  },
+                  {
+                    title: "Serviços",
+                    description:
+                      "Funções exclusivas para a construção de tabelas de preços, permitindo análises completas de faturamento e custos, garantindo uma visão precisa e otimizada dos serviços oferecidos.",
+                    icon: Award,
+                    gradient: "from-purple-500 to-violet-600",
+                    bgGradient: "from-purple-50 to-violet-50",
+                    delay: "stagger-4",
+                  },
+                ].map((funcionalidade, index) => (
+                  <Card
+                    key={index}
+                    className={`group hover:shadow-3xl hover-lift transition-all duration-700 border-0 shadow-xl bg-gradient-to-br ${funcionalidade.bgGradient} scroll-animate fade-up ${funcionalidade.delay} relative overflow-hidden`}
+                  >
+                    <div className="absolute inset-0 bg-gradient-to-br from-white/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <CardContent className="p-8 text-center relative">
+                      <div
+                        className={`w-16 h-16 bg-gradient-to-br ${funcionalidade.gradient} rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 group-hover:rotate-12 transition-all duration-700 shadow-2xl floating`}
+                      >
+                        <funcionalidade.icon className="h-8 w-8 text-white" />
+                      </div>
+                      <h3 className="text-xl font-black text-slate-900 mb-4">
+                        {funcionalidade.title}
+                      </h3>
+                      <p className="text-slate-600 leading-relaxed text-sm">
+                        {funcionalidade.description}
+                      </p>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
 
-            {/* Segunda linha de funcionalidades */}
-            <div className="grid md:grid-cols-3 gap-12 max-w-6xl mx-auto">
-              {[
-                {
-                  title: "Financeiro",
-                  description:
-                    "Gestão financeira completa e customizada, com controle de entradas (receitas) e saídas (despesas), conciliações financeiras, fluxo de caixa, DRE, relatórios gerenciais e auditorias. Tudo para que sua empresa tenha uma visão clara e estratégica das finanças.",
-                  icon: CreditCard,
-                  gradient: "from-green-500 to-emerald-600",
-                  bgGradient: "from-green-50 to-emerald-50",
-                  delay: "stagger-1",
-                },
-                {
-                  title: "Frente de Caixa",
-                  description:
-                    "Funções otimizadas para facilitar o atendimento ao cliente, com interface direta ao módulo financeiro e auditoria integrada, proporcionando um processo de venda mais ágil e seguro.",
-                  icon: Users,
-                  gradient: "from-blue-500 to-cyan-600",
-                  bgGradient: "from-blue-50 to-cyan-50",
-                  delay: "stagger-2",
-                },
-                {
-                  title: "Configurações e Parametrizações",
-                  description:
-                    "Oferecemos personalização total, adaptando o sistema à gestão do seu negócio. Organize processos de forma simplificada, com níveis de acesso diferenciados e módulos que suportam a gestão unificada ou individual de multiempresas, franquias ou filiais.",
-                  icon: Shield,
-                  gradient: "from-purple-500 to-indigo-600",
-                  bgGradient: "from-purple-50 to-indigo-50",
-                  delay: "stagger-3",
-                },
-              ].map((funcionalidade, index) => (
-                <Card
-                  key={index}
-                  className={`group hover:shadow-3xl hover-lift transition-all duration-700 border-0 shadow-xl bg-gradient-to-br ${funcionalidade.bgGradient} scroll-animate fade-up ${funcionalidade.delay} relative overflow-hidden`}
-                >
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                  <CardContent className="p-10 text-center relative">
-                    <div
-                      className={`w-20 h-20 bg-gradient-to-br ${funcionalidade.gradient} rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 group-hover:rotate-12 transition-all duration-700 shadow-2xl floating`}
-                    >
-                      <funcionalidade.icon className="h-10 w-10 text-white" />
-                    </div>
-                    <h3 className="text-2xl font-black text-slate-900 mb-6">
-                      {funcionalidade.title}
-                    </h3>
-                    <p className="text-slate-600 leading-relaxed text-base">
-                      {funcionalidade.description}
-                    </p>
-                  </CardContent>
-                </Card>
-              ))}
+              {/* Segunda linha de funcionalidades */}
+              <div className="grid md:grid-cols-3 gap-12 max-w-6xl mx-auto">
+                {[
+                  {
+                    title: "Financeiro",
+                    description:
+                      "Gestão financeira completa e customizada, com controle de entradas (receitas) e saídas (despesas), conciliações financeiras, fluxo de caixa, DRE, relatórios gerenciais e auditorias. Tudo para que sua empresa tenha uma visão clara e estratégica das finanças.",
+                    icon: CreditCard,
+                    gradient: "from-green-500 to-emerald-600",
+                    bgGradient: "from-green-50 to-emerald-50",
+                    delay: "stagger-1",
+                  },
+                  {
+                    title: "Frente de Caixa",
+                    description:
+                      "Funções otimizadas para facilitar o atendimento ao cliente, com interface direta ao módulo financeiro e auditoria integrada, proporcionando um processo de venda mais ágil e seguro.",
+                    icon: Users,
+                    gradient: "from-blue-500 to-cyan-600",
+                    bgGradient: "from-blue-50 to-cyan-50",
+                    delay: "stagger-2",
+                  },
+                  {
+                    title: "Configurações e Parametrizações",
+                    description:
+                      "Oferecemos personalização total, adaptando o sistema à gestão do seu negócio. Organize processos de forma simplificada, com níveis de acesso diferenciados e módulos que suportam a gestão unificada ou individual de multiempresas, franquias ou filiais.",
+                    icon: Shield,
+                    gradient: "from-purple-500 to-indigo-600",
+                    bgGradient: "from-purple-50 to-indigo-50",
+                    delay: "stagger-3",
+                  },
+                ].map((funcionalidade, index) => (
+                  <Card
+                    key={index}
+                    className={`group hover:shadow-3xl hover-lift transition-all duration-700 border-0 shadow-xl bg-gradient-to-br ${funcionalidade.bgGradient} scroll-animate fade-up ${funcionalidade.delay} relative overflow-hidden`}
+                  >
+                    <div className="absolute inset-0 bg-gradient-to-br from-white/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <CardContent className="p-10 text-center relative">
+                      <div
+                        className={`w-20 h-20 bg-gradient-to-br ${funcionalidade.gradient} rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 group-hover:rotate-12 transition-all duration-700 shadow-2xl floating`}
+                      >
+                        <funcionalidade.icon className="h-10 w-10 text-white" />
+                      </div>
+                      <h3 className="text-2xl font-black text-slate-900 mb-6">
+                        {funcionalidade.title}
+                      </h3>
+                      <p className="text-slate-600 leading-relaxed text-base">
+                        {funcionalidade.description}
+                      </p>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
             </div>
           </div>
         </section>
@@ -932,10 +982,7 @@ export default function HomePage() {
             <div className="absolute top-0 left-0 w-full h-full opacity-20">
               <div className="absolute top-20 left-20 w-80 h-80 bg-gradient-to-br from-pink-400 to-purple-500 rounded-full blur-3xl floating"></div>
               <div className="absolute bottom-20 right-20 w-96 h-96 bg-gradient-to-br from-blue-400 to-indigo-500 rounded-full blur-3xl floating-delayed"></div>
-              <div
-                className="absolute top-1/2 left-1/2 w-64 h-64 bg-gradient-to-br from-purple-400 to-pink-500 rounded-full blur-3xl parallax"
-                data-speed="0.4"
-              ></div>
+              <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-gradient-to-br from-purple-400 to-pink-500 rounded-full blur-3xl"></div>
             </div>
           </div>
 
