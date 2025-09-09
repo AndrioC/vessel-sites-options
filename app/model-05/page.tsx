@@ -16,7 +16,6 @@ import {
   Instagram,
   Mail,
   Phone,
-  MapPin,
   Send,
   Star,
   CheckCircle,
@@ -27,11 +26,13 @@ import {
   Globe,
   Award,
   Rocket,
+  InstagramIcon,
 } from "lucide-react";
 import { useEffect, useState } from "react";
 
+import Link from "next/link";
+
 export default function HomePage() {
-  const currentYear = new Date().getFullYear();
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
@@ -64,7 +65,7 @@ export default function HomePage() {
       parallaxElements.forEach((element) => {
         const htmlElement = element as HTMLElement;
         const speed = htmlElement.dataset.speed || "0.1";
-        const yPos = -(scrolled * parseFloat(speed));
+        const yPos = -(scrolled * Number.parseFloat(speed));
         htmlElement.style.transform = `translateY(${yPos}px)`;
       });
     };
@@ -104,7 +105,7 @@ export default function HomePage() {
             transform: translateY(0px);
           }
           50% {
-            transform: translateY(-20px);
+            transform: translateY(-10px);
           }
         }
 
@@ -129,8 +130,8 @@ export default function HomePage() {
 
         .scroll-animate {
           opacity: 0;
-          transform: translateY(50px);
-          transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+          transform: translateY(30px);
+          transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .scroll-animate.animate-in {
@@ -139,19 +140,19 @@ export default function HomePage() {
         }
 
         .scroll-animate.fade-up {
-          transform: translateY(80px);
+          transform: translateY(40px);
         }
 
         .scroll-animate.fade-left {
-          transform: translateX(-80px) translateY(0);
+          transform: translateX(-40px) translateY(0);
         }
 
         .scroll-animate.fade-right {
-          transform: translateX(80px) translateY(0);
+          transform: translateX(40px) translateY(0);
         }
 
         .scroll-animate.scale-up {
-          transform: scale(0.8) translateY(0);
+          transform: scale(0.95) translateY(0);
         }
 
         .scroll-animate.animate-in.scale-up {
@@ -159,29 +160,29 @@ export default function HomePage() {
         }
 
         .stagger-1 {
-          transition-delay: 0.2s;
+          transition-delay: 0.1s;
         }
         .stagger-2 {
-          transition-delay: 0.4s;
+          transition-delay: 0.2s;
         }
         .stagger-3 {
-          transition-delay: 0.6s;
+          transition-delay: 0.3s;
         }
         .stagger-4 {
-          transition-delay: 0.8s;
+          transition-delay: 0.4s;
         }
         .stagger-5 {
-          transition-delay: 1s;
+          transition-delay: 0.5s;
         }
         .stagger-6 {
-          transition-delay: 1.2s;
+          transition-delay: 0.6s;
         }
 
         .floating {
-          animation: float 6s ease-in-out infinite;
+          animation: float 4s ease-in-out infinite;
         }
         .floating-delayed {
-          animation: float 6s ease-in-out infinite 3s;
+          animation: float 4s ease-in-out infinite 2s;
         }
 
         .glow-effect {
@@ -213,10 +214,32 @@ export default function HomePage() {
           background-size: 200% 100%;
           animation: shimmer 3s infinite;
         }
+
+        /* Fixed hover animations that don't affect layout */
+        .hover-lift {
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .hover-lift:hover {
+          transform: translateY(-4px);
+        }
+
+        .hover-scale {
+          transition: transform 0.3s ease;
+        }
+        .hover-scale:hover {
+          transform: scale(1.02);
+        }
+
+        .hover-rotate {
+          transition: transform 0.3s ease;
+        }
+        .hover-rotate:hover {
+          transform: rotate(2deg);
+        }
       `}</style>
 
       {/* Enhanced Header */}
-      <header className="fixed top-0 z-50 w-full bg-white/80 backdrop-blur-2xl border-b border-slate-200/60 shadow-xl">
+      <header className="fixed top-0 z-50 w-full bg-white backdrop-blur-2xl border-b border-slate-200/60 shadow-xl">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center space-x-4">
             <div className="flex items-center space-x-2">
@@ -227,7 +250,32 @@ export default function HomePage() {
               />
             </div>
           </div>
-          <Button className="bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 px-6 py-3">
+
+          <nav className="hidden md:flex items-center space-x-8">
+            <Link
+              href="/model-05/about"
+              className="relative group text-slate-700 font-medium transition-all duration-300 px-4 py-2.5 rounded-xl bg-gradient-to-br from-slate-50 to-slate-100/70 shadow-sm border border-slate-200/60 hover:border-amber-200/50 hover:shadow-md"
+            >
+              <span className="relative z-10 flex items-center">
+                <Users className="w-4 h-4 mr-2 text-amber-600/80" />
+                Sobre nós
+              </span>
+
+              {/* Efeito de brilho sutil no estado normal */}
+              <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-amber-400/5 to-orange-400/3 opacity-60"></div>
+
+              {/* Efeito de hover */}
+              <div className="absolute inset-0 bg-gradient-to-r from-amber-500/8 to-orange-500/6 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+
+              {/* Borda gradiente no hover */}
+              <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-px">
+                <div className="absolute inset-0 bg-gradient-to-r from-amber-400/40 to-orange-500/40 rounded-xl"></div>
+                <div className="absolute inset-px bg-gradient-to-br from-slate-50 to-slate-100/70 rounded-[11px]"></div>
+              </div>
+            </Link>
+          </nav>
+
+          <Button className="bg-amber-600 hover:bg-amber-700 text-white shadow-xl hover:shadow-2xl hover-scale transition-all duration-300 px-6 py-3">
             <Rocket className="w-4 h-4 mr-2" />
             LOGIN
           </Button>
@@ -283,7 +331,7 @@ export default function HomePage() {
                 <div className="flex flex-col sm:flex-row gap-6 scroll-animate fade-up stagger-4">
                   <Button
                     size="lg"
-                    className="bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:from-amber-600 hover:via-orange-600 hover:to-amber-700 text-white shadow-2xl hover:shadow-3xl transform hover:scale-110 transition-all duration-500 px-10 py-6 text-lg rounded-2xl group"
+                    className="cursor-pointer bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:from-amber-600 hover:via-orange-600 hover:to-amber-700 text-white shadow-2xl hover:shadow-3xl hover-scale transition-all duration-500 px-10 py-6 text-lg rounded-2xl group"
                   >
                     <Sparkles className="mr-3 h-5 w-5 group-hover:rotate-180 transition-transform duration-500" />
                     Começar Agora
@@ -292,49 +340,11 @@ export default function HomePage() {
                   <Button
                     size="lg"
                     variant="outline"
-                    className="border-3 border-slate-300 text-slate-700 hover:bg-slate-50 bg-white/90 backdrop-blur-sm shadow-2xl hover:shadow-3xl transition-all duration-500 px-10 py-6 text-lg rounded-2xl group"
+                    className="cursor-pointer border-3 border-slate-300 text-slate-700 hover:bg-slate-50 bg-white/90 backdrop-blur-sm shadow-2xl hover:shadow-3xl transition-all duration-500 px-10 py-6 text-lg rounded-2xl group"
                   >
                     <Globe className="mr-3 h-5 w-5 group-hover:scale-110 transition-transform duration-300" />
                     Ver Demo
                   </Button>
-                </div>
-
-                {/* Enhanced trust indicators */}
-                <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-4 sm:space-y-0 sm:space-x-10 pt-8 scroll-animate fade-up stagger-5">
-                  <div className="flex items-center space-x-3">
-                    <div className="flex -space-x-3">
-                      {[1, 2, 3, 4, 5].map((i) => (
-                        <div
-                          key={i}
-                          className="w-10 h-10 bg-gradient-to-br from-amber-400 to-orange-500 rounded-full border-3 border-white shadow-lg floating"
-                          style={{ animationDelay: `${i * 0.5}s` }}
-                        ></div>
-                      ))}
-                    </div>
-                    <div className="ml-2">
-                      <span className="text-base font-bold text-slate-800">
-                        +2.500
-                      </span>
-                      <p className="text-sm text-slate-600 font-medium">
-                        salões parceiros
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center space-x-2">
-                    {[1, 2, 3, 4, 5].map((i) => (
-                      <Star
-                        key={i}
-                        className="w-5 h-5 fill-amber-400 text-amber-400"
-                      />
-                    ))}
-                    <div className="ml-3">
-                      <span className="text-base font-bold text-slate-800">
-                        4.9/5
-                      </span>
-                      <p className="text-sm text-slate-600">avaliação média</p>
-                    </div>
-                  </div>
                 </div>
               </div>
 
@@ -342,7 +352,7 @@ export default function HomePage() {
               <div className="relative scroll-animate fade-left scale-up stagger-3">
                 <div className="relative z-10 space-y-8">
                   {/* Main dashboard mockup */}
-                  <div className="bg-white/95 backdrop-blur-lg rounded-3xl shadow-2xl p-8 transform rotate-3 hover:rotate-0 transition-all duration-700 border border-slate-200 floating">
+                  <div className="bg-white/95 backdrop-blur-lg rounded-3xl shadow-2xl p-8 hover-rotate hover-lift transition-all duration-700 border border-slate-200 floating">
                     <div className="flex items-center space-x-3 mb-6">
                       <div className="w-4 h-4 bg-red-400 rounded-full"></div>
                       <div className="w-4 h-4 bg-yellow-400 rounded-full"></div>
@@ -362,15 +372,15 @@ export default function HomePage() {
                       </div>
 
                       <div className="grid grid-cols-3 gap-4">
-                        <div className="h-20 bg-gradient-to-br from-blue-100 to-indigo-200 rounded-2xl p-4 hover:scale-105 transition-transform duration-300">
+                        <div className="h-20 bg-gradient-to-br from-blue-100 to-indigo-200 rounded-2xl p-4 hover-scale transition-transform duration-300">
                           <Calendar className="w-5 h-5 text-blue-600 mb-2" />
                           <div className="h-2 bg-blue-300 rounded w-3/4"></div>
                         </div>
-                        <div className="h-20 bg-gradient-to-br from-emerald-100 to-green-200 rounded-2xl p-4 hover:scale-105 transition-transform duration-300">
+                        <div className="h-20 bg-gradient-to-br from-emerald-100 to-green-200 rounded-2xl p-4 hover-scale transition-transform duration-300">
                           <CreditCard className="w-5 h-5 text-emerald-600 mb-2" />
                           <div className="h-2 bg-emerald-300 rounded w-2/3"></div>
                         </div>
-                        <div className="h-20 bg-gradient-to-br from-purple-100 to-violet-200 rounded-2xl p-4 hover:scale-105 transition-transform duration-300">
+                        <div className="h-20 bg-gradient-to-br from-purple-100 to-violet-200 rounded-2xl p-4 hover-scale transition-transform duration-300">
                           <BarChart3 className="w-5 h-5 text-purple-600 mb-2" />
                           <div className="h-2 bg-purple-300 rounded w-4/5"></div>
                         </div>
@@ -379,7 +389,7 @@ export default function HomePage() {
                   </div>
 
                   {/* Floating agenda card */}
-                  <div className="bg-white/95 backdrop-blur-lg rounded-3xl shadow-xl p-6 transform -rotate-2 hover:rotate-0 transition-all duration-700 ml-16 border border-slate-200 floating-delayed">
+                  <div className="bg-white/95 backdrop-blur-lg rounded-3xl shadow-xl p-6 hover-rotate hover-lift transition-all duration-700 ml-16 border border-slate-200 floating-delayed">
                     <div className="flex items-center justify-between mb-6">
                       <span className="text-lg font-bold text-slate-800 flex items-center">
                         <Timer className="w-4 h-4 mr-2 text-amber-600" />
@@ -388,7 +398,7 @@ export default function HomePage() {
                       <div className="w-4 h-4 bg-green-400 rounded-full animate-pulse glow-effect"></div>
                     </div>
                     <div className="space-y-4">
-                      <div className="flex items-center space-x-4 p-4 bg-gradient-to-r from-amber-50 to-orange-50 rounded-2xl transform hover:scale-105 transition-all duration-300">
+                      <div className="flex items-center space-x-4 p-4 bg-gradient-to-r from-amber-50 to-orange-50 rounded-2xl hover-scale transition-all duration-300">
                         <div className="w-4 h-4 bg-amber-500 rounded-full glow-effect"></div>
                         <div>
                           <span className="text-sm font-bold text-slate-800">
@@ -400,7 +410,7 @@ export default function HomePage() {
                           </p>
                         </div>
                       </div>
-                      <div className="flex items-center space-x-4 p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl transform hover:scale-105 transition-all duration-300">
+                      <div className="flex items-center space-x-4 p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl hover-scale transition-all duration-300">
                         <div className="w-4 h-4 bg-blue-500 rounded-full glow-effect"></div>
                         <div>
                           <span className="text-sm font-bold text-slate-800">
@@ -417,7 +427,7 @@ export default function HomePage() {
                 </div>
 
                 {/* Enhanced glow effects */}
-                <div className="absolute inset-0 bg-gradient-to-r from-amber-400/20 via-orange-400/15 to-blue-400/20 rounded-3xl blur-3xl transform scale-110 floating"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-amber-400/20 via-orange-400/15 to-blue-400/20 rounded-3xl blur-3xl floating opacity-50"></div>
                 <div className="absolute -top-10 -right-10 w-20 h-20 bg-gradient-to-br from-amber-400 to-orange-500 rounded-full opacity-20 blur-2xl floating"></div>
                 <div className="absolute -bottom-10 -left-10 w-24 h-24 bg-gradient-to-br from-blue-400 to-purple-500 rounded-full opacity-20 blur-2xl floating-delayed"></div>
               </div>
@@ -476,7 +486,7 @@ export default function HomePage() {
               ].map((feature, index) => (
                 <Card
                   key={index}
-                  className={`group hover:shadow-3xl transition-all duration-700 border-0 shadow-xl bg-gradient-to-br ${feature.bgColor} hover:-translate-y-4 scroll-animate fade-up ${feature.delay} relative overflow-hidden`}
+                  className={`group hover:shadow-3xl hover-lift transition-all duration-700 border-0 shadow-xl bg-gradient-to-br ${feature.bgColor} scroll-animate fade-up ${feature.delay} relative overflow-hidden`}
                 >
                   <div className="absolute inset-0 bg-gradient-to-br from-white/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                   <CardContent className="p-10 text-center relative">
@@ -505,8 +515,8 @@ export default function HomePage() {
         </section>
 
         {/* Enhanced Performance Section */}
-        <section className="py-32 bg-gradient-to-br from-slate-900 via-slate-800 to-indigo-900 text-white relative overflow-hidden">
-          <div className="absolute inset-0">
+        <section className="py-32 relative overflow-hidden bg-slate-900">
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-indigo-900">
             <div className="absolute top-20 left-20 w-96 h-96 bg-gradient-to-br from-amber-400/20 to-orange-500/15 rounded-full blur-3xl floating"></div>
             <div className="absolute bottom-20 right-20 w-[500px] h-[500px] bg-gradient-to-br from-blue-400/15 to-purple-500/20 rounded-full blur-3xl floating-delayed"></div>
             <div
@@ -517,18 +527,18 @@ export default function HomePage() {
 
           <div className="container mx-auto px-4 relative">
             <div className="text-center mb-24 scroll-animate fade-up">
-              <Badge className="bg-white/10 text-white mb-8 px-6 py-3 border border-white/30 shadow-xl backdrop-blur-sm">
+              <Badge className="bg-slate-800 text-white mb-8 px-6 py-3 border border-white/30 shadow-xl backdrop-blur-sm">
                 <TrendingUp className="w-4 h-4 mr-2" />
                 Performance Premium
               </Badge>
-              <h2 className="text-4xl lg:text-6xl font-black mb-8 text-balance">
+              <h2 className="text-4xl lg:text-6xl font-black mb-8 text-balance text-white">
                 SISTEMA DE
                 <br />
                 <span className="bg-gradient-to-r from-amber-400 via-orange-400 to-amber-500 bg-clip-text text-transparent">
                   ALTA PERFORMANCE
                 </span>
               </h2>
-              <p className="text-xl text-slate-300 mb-12 font-light max-w-4xl mx-auto">
+              <p className="text-xl text-slate-100 mb-12 font-light max-w-4xl mx-auto">
                 Tecnologia de ponta que se adapta perfeitamente às suas
                 necessidades.
               </p>
@@ -568,8 +578,11 @@ export default function HomePage() {
               ].map((feature, index) => (
                 <div
                   key={index}
-                  className={`bg-gradient-to-br ${feature.gradient} rounded-3xl p-8 border border-white/20 backdrop-blur-xl hover:scale-105 transition-all duration-700 scroll-animate fade-up ${feature.delay} group relative overflow-hidden`}
+                  className={`bg-slate-800 rounded-3xl p-8 border border-white/20 backdrop-blur-xl hover-lift transition-all duration-700 scroll-animate fade-up ${feature.delay} group relative overflow-hidden`}
                 >
+                  <div
+                    className={`absolute inset-0 bg-gradient-to-br ${feature.gradient} opacity-50`}
+                  ></div>
                   <div className="absolute inset-0 bg-gradient-to-r from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                   <div className="relative">
                     <div
@@ -580,28 +593,414 @@ export default function HomePage() {
                     <h3 className="text-2xl font-black mb-4 text-white">
                       {feature.title}
                     </h3>
-                    <p className="text-slate-300 leading-relaxed text-base">
+                    <p className="text-slate-100 leading-relaxed text-base">
                       {feature.description}
                     </p>
                   </div>
                 </div>
               ))}
             </div>
+          </div>
+        </section>
 
-            <div className="text-center mt-20 scroll-animate fade-up stagger-4">
-              <Button
-                size="lg"
-                className="bg-gradient-to-r from-white to-slate-100 text-slate-900 hover:from-slate-100 hover:to-white shadow-2xl hover:shadow-3xl transition-all duration-500 px-12 py-6 text-lg rounded-2xl group"
-              >
-                <Rocket className="mr-3 h-5 w-5 group-hover:scale-110 transition-transform duration-300" />
-                DESCUBRA TODOS OS BENEFÍCIOS
-                <ArrowRight className="ml-3 h-5 w-5 group-hover:translate-x-2 transition-transform duration-300" />
-              </Button>
+        <section className="py-32 bg-gradient-to-br from-slate-900 via-indigo-900 to-blue-900 text-white relative overflow-hidden">
+          <div className="absolute inset-0">
+            <div className="absolute top-0 left-0 w-full h-full opacity-20">
+              <div className="absolute top-20 left-20 w-80 h-80 bg-gradient-to-br from-amber-400 to-orange-500 rounded-full blur-3xl floating"></div>
+              <div className="absolute bottom-20 right-20 w-96 h-96 bg-gradient-to-br from-blue-400 to-purple-500 rounded-full blur-3xl floating-delayed"></div>
+            </div>
+          </div>
+
+          <div className="container mx-auto px-4 relative">
+            <div className="text-center mb-24 scroll-animate fade-up">
+              <Badge className="bg-white/10 text-white mb-8 px-6 py-3 border border-white/30 shadow-xl backdrop-blur-sm">
+                <Award className="w-4 h-4 mr-2" />
+                Nossos Diferenciais
+              </Badge>
+              <h2 className="text-4xl lg:text-6xl font-black mb-8 text-balance">
+                NOSSOS
+                <br />
+                <span className="bg-gradient-to-r from-amber-400 via-orange-400 to-amber-500 bg-clip-text text-transparent">
+                  DIFERENCIAIS
+                </span>
+              </h2>
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 max-w-7xl mx-auto">
+              {[
+                {
+                  title: "TECNOLOGIA PRÓPRIA",
+                  icon: Zap,
+                  gradient: "from-amber-500 to-orange-600",
+                  delay: "stagger-1",
+                },
+                {
+                  title: "ATENDIMENTO PERSONALIZADO",
+                  icon: Users,
+                  gradient: "from-blue-500 to-indigo-600",
+                  delay: "stagger-2",
+                },
+                {
+                  title: "SUPORTE",
+                  icon: Shield,
+                  gradient: "from-emerald-500 to-teal-600",
+                  delay: "stagger-3",
+                },
+                {
+                  title: "PLATAFORMA CUSTOMIZÁVEL",
+                  icon: Smartphone,
+                  gradient: "from-purple-500 to-violet-600",
+                  delay: "stagger-4",
+                },
+                {
+                  title: "CONSULTORIA",
+                  icon: Award,
+                  gradient: "from-pink-500 to-rose-600",
+                  delay: "stagger-5",
+                },
+                {
+                  title: "TREINAMENTOS",
+                  icon: BarChart3,
+                  gradient: "from-cyan-500 to-blue-600",
+                  delay: "stagger-6",
+                },
+                {
+                  title: "ACOMPANHAMENTO MAIS PRÓXIMO AO CLIENTE",
+                  icon: TrendingUp,
+                  gradient: "from-orange-500 to-red-600",
+                  delay: "stagger-1",
+                },
+              ].map((diferencial, index) => (
+                <div
+                  key={index}
+                  className={`bg-white/10 backdrop-blur-lg rounded-3xl p-8 border border-white/20 hover-lift transition-all duration-700 scroll-animate fade-up ${diferencial.delay} group relative overflow-hidden`}
+                >
+                  <div className="absolute inset-0 bg-gradient-to-r from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <div className="relative text-center">
+                    <div
+                      className={`w-16 h-16 bg-gradient-to-br ${diferencial.gradient} rounded-2xl flex items-center justify-center mb-6 shadow-2xl floating group-hover:scale-110 transition-transform duration-500 mx-auto`}
+                    >
+                      <diferencial.icon className="h-8 w-8 text-white" />
+                    </div>
+                    <h3 className="text-lg font-black mb-4 text-white text-balance">
+                      {diferencial.title}
+                    </h3>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </section>
 
-        {/* Enhanced Contact Section */}
+        <section className="py-32 bg-gradient-to-br from-white via-slate-50/80 to-amber-50/20 relative">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-24 scroll-animate fade-up">
+              <Badge className="bg-gradient-to-r from-slate-100 to-slate-200 text-slate-700 mb-8 px-6 py-3 text-base shadow-lg">
+                <Zap className="w-4 h-4 mr-2" />
+                Funcionalidades Completas
+              </Badge>
+              <h2 className="text-4xl lg:text-6xl font-black text-slate-900 mb-8">
+                FUNCIONALIDADES
+                <br />
+                <span className="gradient-text">COMPLETAS</span>
+              </h2>
+            </div>
+
+            {/* Primeira linha de funcionalidades */}
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16 max-w-7xl mx-auto">
+              {[
+                {
+                  title: "Agenda",
+                  description:
+                    "Mais funções e personalização para facilitar e agilizar sua rotina de agendamentos. Nosso sistema foi projetado para simplificar o processo, garantindo que você tenha mais controle e eficiência no gerenciamento dos seus compromissos.",
+                  icon: Calendar,
+                  gradient: "from-amber-500 to-orange-600",
+                  bgGradient: "from-amber-50 to-orange-50",
+                  delay: "stagger-1",
+                },
+                {
+                  title: "Comunicação com o Cliente",
+                  description:
+                    "Nossa plataforma permite a automatização de mensagens, oferecendo uma comunicação direta e prática com seus clientes via WhatsApp. Isso fortalece o relacionamento e mantém o cliente sempre informado.",
+                  icon: Smartphone,
+                  gradient: "from-blue-500 to-indigo-600",
+                  bgGradient: "from-blue-50 to-indigo-50",
+                  delay: "stagger-2",
+                },
+                {
+                  title: "Estoque e Produtos",
+                  description:
+                    "Controle total e personalizado da gestão de estoque, com monitoramento de entradas, saídas e consumo. Utilizamos relatórios técnicos como Kardex, curva ABC, inventários e giro de estoque, além de auditorias que garantem uma visão detalhada do seu estoque.",
+                  icon: BarChart3,
+                  gradient: "from-emerald-500 to-teal-600",
+                  bgGradient: "from-emerald-50 to-teal-50",
+                  delay: "stagger-3",
+                },
+                {
+                  title: "Serviços",
+                  description:
+                    "Funções exclusivas para a construção de tabelas de preços, permitindo análises completas de faturamento e custos, garantindo uma visão precisa e otimizada dos serviços oferecidos.",
+                  icon: Award,
+                  gradient: "from-purple-500 to-violet-600",
+                  bgGradient: "from-purple-50 to-violet-50",
+                  delay: "stagger-4",
+                },
+              ].map((funcionalidade, index) => (
+                <Card
+                  key={index}
+                  className={`group hover:shadow-3xl hover-lift transition-all duration-700 border-0 shadow-xl bg-gradient-to-br ${funcionalidade.bgGradient} scroll-animate fade-up ${funcionalidade.delay} relative overflow-hidden`}
+                >
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <CardContent className="p-8 text-center relative">
+                    <div
+                      className={`w-16 h-16 bg-gradient-to-br ${funcionalidade.gradient} rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 group-hover:rotate-12 transition-all duration-700 shadow-2xl floating`}
+                    >
+                      <funcionalidade.icon className="h-8 w-8 text-white" />
+                    </div>
+                    <h3 className="text-xl font-black text-slate-900 mb-4">
+                      {funcionalidade.title}
+                    </h3>
+                    <p className="text-slate-600 leading-relaxed text-sm">
+                      {funcionalidade.description}
+                    </p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+
+            {/* Segunda linha de funcionalidades */}
+            <div className="grid md:grid-cols-3 gap-12 max-w-6xl mx-auto">
+              {[
+                {
+                  title: "Financeiro",
+                  description:
+                    "Gestão financeira completa e customizada, com controle de entradas (receitas) e saídas (despesas), conciliações financeiras, fluxo de caixa, DRE, relatórios gerenciais e auditorias. Tudo para que sua empresa tenha uma visão clara e estratégica das finanças.",
+                  icon: CreditCard,
+                  gradient: "from-green-500 to-emerald-600",
+                  bgGradient: "from-green-50 to-emerald-50",
+                  delay: "stagger-1",
+                },
+                {
+                  title: "Frente de Caixa",
+                  description:
+                    "Funções otimizadas para facilitar o atendimento ao cliente, com interface direta ao módulo financeiro e auditoria integrada, proporcionando um processo de venda mais ágil e seguro.",
+                  icon: Users,
+                  gradient: "from-blue-500 to-cyan-600",
+                  bgGradient: "from-blue-50 to-cyan-50",
+                  delay: "stagger-2",
+                },
+                {
+                  title: "Configurações e Parametrizações",
+                  description:
+                    "Oferecemos personalização total, adaptando o sistema à gestão do seu negócio. Organize processos de forma simplificada, com níveis de acesso diferenciados e módulos que suportam a gestão unificada ou individual de multiempresas, franquias ou filiais.",
+                  icon: Shield,
+                  gradient: "from-purple-500 to-indigo-600",
+                  bgGradient: "from-purple-50 to-indigo-50",
+                  delay: "stagger-3",
+                },
+              ].map((funcionalidade, index) => (
+                <Card
+                  key={index}
+                  className={`group hover:shadow-3xl hover-lift transition-all duration-700 border-0 shadow-xl bg-gradient-to-br ${funcionalidade.bgGradient} scroll-animate fade-up ${funcionalidade.delay} relative overflow-hidden`}
+                >
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <CardContent className="p-10 text-center relative">
+                    <div
+                      className={`w-20 h-20 bg-gradient-to-br ${funcionalidade.gradient} rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 group-hover:rotate-12 transition-all duration-700 shadow-2xl floating`}
+                    >
+                      <funcionalidade.icon className="h-10 w-10 text-white" />
+                    </div>
+                    <h3 className="text-2xl font-black text-slate-900 mb-6">
+                      {funcionalidade.title}
+                    </h3>
+                    <p className="text-slate-600 leading-relaxed text-base">
+                      {funcionalidade.description}
+                    </p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="py-16 md:py-32 bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 text-white relative overflow-hidden">
+          <div className="absolute inset-0">
+            <div className="absolute top-0 left-0 w-full h-full opacity-20">
+              <div className="absolute top-20 left-20 w-80 h-80 bg-gradient-to-br from-amber-400 to-orange-500 rounded-full blur-3xl floating"></div>
+              <div className="absolute bottom-20 right-20 w-96 h-96 bg-gradient-to-br from-blue-400 to-purple-500 rounded-full blur-3xl floating-delayed"></div>
+            </div>
+          </div>
+
+          <div className="container mx-auto px-4 relative">
+            <div className="grid lg:grid-cols-2 gap-8 lg:gap-20 items-center">
+              {/* Texto */}
+              <div className="scroll-animate fade-up lg:fade-right">
+                <Badge className="bg-gradient-to-r from-amber-500/20 to-orange-500/20 text-amber-300 mb-6 md:mb-8 px-4 md:px-6 py-2 md:py-3 text-sm md:text-base shadow-xl border border-amber-400/30">
+                  <Star className="w-3 md:w-4 h-3 md:h-4 mr-2" />
+                  Programa Exclusivo
+                </Badge>
+                <h2 className="text-3xl md:text-4xl lg:text-6xl font-black mb-6 md:mb-8">
+                  CLUB VIP
+                  <br />
+                  <span className="bg-gradient-to-r from-amber-400 via-orange-400 to-amber-500 bg-clip-text text-transparent">
+                    TRIPULANTES
+                  </span>
+                  <br />
+                  VESSEL
+                </h2>
+                <div className="space-y-4 md:space-y-6 text-base md:text-lg text-slate-300">
+                  <p>
+                    Club VIP Tripulantes é um grupo seleto e exclusivo para os
+                    primeiros clientes da Vessel. Esses membros têm acesso
+                    antecipado à todas as novidades e atualizações do sistema,
+                    além de oportunidades exclusivas dentro do ecossistema
+                    Vessel.
+                  </p>
+                  <p>
+                    Os participantes terão acesso a promoções exclusivas e
+                    contarão com a presença de parceiros estratégicos da Vessel,
+                    como marketing, gestão financeira, inovação, jurídico, RH,
+                    contabilidade e muito mais. Esses parceiros trarão conteúdos
+                    práticos, workshops, e descontos especiais, agregando ainda
+                    mais valor ao club vip tripulantes.
+                  </p>
+                  <p className="text-amber-300 font-semibold text-lg md:text-xl">
+                    Agradecemos por fazer parte da Vessel. O seu sucesso é
+                    importante para nós, e é um privilégio ter você conosco
+                    nessa jornada.
+                  </p>
+                </div>
+                <Button
+                  size="lg"
+                  className="mt-6 md:mt-8 w-full md:w-auto bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 
+                     hover:from-amber-600 hover:via-orange-600 hover:to-amber-700 text-white shadow-2xl 
+                     hover:shadow-3xl hover-scale transition-all duration-500 px-6 md:px-10 py-4 md:py-6 
+                     text-base md:text-lg rounded-2xl group"
+                >
+                  <Star className="mr-2 md:mr-3 h-4 md:h-5 w-4 md:w-5 group-hover:scale-110 transition-transform duration-300" />
+                  FAZER PARTE DO CLUB VIP
+                  <ArrowRight className="ml-2 md:ml-3 h-4 md:h-5 w-4 md:w-5 group-hover:translate-x-1 transition-transform duration-300" />
+                </Button>
+              </div>
+
+              {/* Card */}
+              <div className="scroll-animate fade-up lg:fade-left mt-8 lg:mt-0">
+                <div className="relative">
+                  <div className="bg-white/10 backdrop-blur-lg rounded-2xl md:rounded-3xl p-6 md:p-8 border border-white/20 shadow-3xl">
+                    <div className="text-center mb-6 md:mb-8">
+                      <div className="w-16 md:w-20 h-16 md:h-20 bg-gradient-to-br from-amber-500 to-orange-600 rounded-full flex items-center justify-center mx-auto mb-3 md:mb-4 shadow-2xl">
+                        <Star className="w-8 md:w-10 h-8 md:h-10 text-white" />
+                      </div>
+                      <h3 className="text-xl md:text-2xl font-black text-white mb-2">
+                        BENEFÍCIOS EXCLUSIVOS
+                      </h3>
+                    </div>
+                    <div className="space-y-3 md:space-y-4">
+                      {[
+                        "Acesso antecipado às novidades",
+                        "Promoções exclusivas",
+                        "Parceiros estratégicos",
+                        "Workshops e treinamentos",
+                        "Descontos especiais",
+                        "Suporte prioritário",
+                      ].map((beneficio, index) => (
+                        <div
+                          key={index}
+                          className="flex items-center space-x-3 p-3 bg-white/5 rounded-xl"
+                        >
+                          <CheckCircle className="w-4 md:w-5 h-4 md:h-5 text-amber-400 flex-shrink-0" />
+                          <span className="text-white font-medium text-sm md:text-base">
+                            {beneficio}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Efeitos decorativos */}
+                  <div className="absolute -top-4 md:-top-6 -right-4 md:-right-6 w-16 md:w-24 h-16 md:h-24 bg-gradient-to-br from-amber-400/30 to-orange-500/30 rounded-full blur-2xl floating-delayed"></div>
+                  <div className="absolute -bottom-4 md:-bottom-6 -left-4 md:-left-6 w-20 md:w-32 h-20 md:h-32 bg-gradient-to-br from-blue-400/20 to-purple-500/20 rounded-full blur-2xl floating"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Enhanced Instagram Section */}
+        <section className="py-32 bg-gradient-to-br from-indigo-600 via-purple-600 to-blue-700 text-white relative overflow-hidden">
+          <div className="absolute inset-0">
+            <div className="absolute top-0 left-0 w-full h-full opacity-20">
+              <div className="absolute top-20 left-20 w-80 h-80 bg-gradient-to-br from-pink-400 to-purple-500 rounded-full blur-3xl floating"></div>
+              <div className="absolute bottom-20 right-20 w-96 h-96 bg-gradient-to-br from-blue-400 to-indigo-500 rounded-full blur-3xl floating-delayed"></div>
+              <div
+                className="absolute top-1/2 left-1/2 w-64 h-64 bg-gradient-to-br from-purple-400 to-pink-500 rounded-full blur-3xl parallax"
+                data-speed="0.4"
+              ></div>
+            </div>
+          </div>
+
+          <div className="container mx-auto px-4 text-center relative">
+            <div className="scroll-animate fade-up">
+              <Badge className="bg-white/10 backdrop-blur-sm border border-white/30 text-white mb-8 px-6 py-3 text-base shadow-xl">
+                <Instagram className="w-4 h-4 mr-2" />
+                Comunidade
+              </Badge>
+              <h2 className="text-2xl lg:text-4xl font-black mb-8 text-white">
+                VAMOS EMBARCAR
+                <br />
+                <span className="bg-gradient-to-r from-pink-300 via-purple-300 to-indigo-300 bg-clip-text text-transparent">
+                  NESSA JORNADA!
+                </span>
+              </h2>
+              <p className="text-lg text-blue-100 mb-12 max-w-4xl mx-auto font-light">
+                Junte-se à nossa comunidade exclusiva e acompanhe as últimas
+                novidades, dicas e sucessos dos nossos parceiros!
+              </p>
+            </div>
+
+            <div className="max-w-2xl mx-auto scroll-animate scale-up stagger-2">
+              <Link
+                href="https://instagram.com/vessel.br"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Button
+                  size="lg"
+                  className="cursor-pointer bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 
+               hover:from-pink-600 hover:via-purple-600 hover:to-indigo-600 text-white 
+               mb-12 w-full shadow-3xl hover:shadow-4xl hover-scale transition-all 
+               duration-500 h-14 text-lg rounded-xl group"
+                >
+                  <InstagramIcon className="mr-3 h-5 w-5 group-hover:scale-110 transition-transform duration-300" />
+                  SIGA-NOS NO INSTAGRAM
+                  <Sparkles className="ml-3 h-5 w-5 group-hover:rotate-180 transition-transform duration-500" />
+                </Button>
+              </Link>
+              <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 border border-white/20 shadow-3xl group hover:shadow-4xl transition-all duration-700">
+                <div className="w-full h-48 bg-gradient-to-br from-purple-400/20 to-pink-400/20 rounded-xl mb-4 shadow-2xl flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
+                  <div className="text-center">
+                    <Instagram className="w-12 h-12 text-white/80 mx-auto mb-3 floating" />
+                    <p className="text-white/80 text-base font-medium">
+                      @vessel.br
+                    </p>
+                  </div>
+                </div>
+                <p className="text-purple-100 text-lg font-bold">
+                  Navegando rumo ao sucesso do seu negócio
+                </p>
+                <div className="flex items-center justify-center mt-4 space-x-2">
+                  {[1, 2, 3, 4, 5].map((i) => (
+                    <Star
+                      key={i}
+                      className="w-5 h-5 fill-yellow-400 text-yellow-400"
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <section className="py-32 bg-gradient-to-br from-white via-slate-50/80 to-amber-50/40 relative overflow-hidden">
           <div className="container mx-auto px-4">
             <div className="max-w-8xl mx-auto">
@@ -623,9 +1022,10 @@ export default function HomePage() {
                 </p>
               </div>
 
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-24 xl:gap-32 items-start">
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-24 xl:gap-32 items-center">
+                {/* Formulário */}
                 <div className="lg:col-span-2 order-2 lg:order-1">
-                  <Card className="shadow-3xl border-0 bg-white/95 backdrop-blur-lg scroll-animate fade-right group hover:shadow-4xl transition-all duration-700">
+                  <Card className="shadow-3xl border-0 bg-white/95 backdrop-blur-lg scroll-animate fade-up lg:fade-right group hover:shadow-4xl transition-all duration-700">
                     <div className="absolute inset-0 bg-gradient-to-br from-amber-500/5 to-orange-500/5 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                     <CardContent className="p-10 lg:p-12 relative">
                       <div className="flex items-center mb-8">
@@ -690,7 +1090,7 @@ export default function HomePage() {
                           />
                         </div>
 
-                        <Button className="w-full bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:from-amber-600 hover:via-orange-600 hover:to-amber-700 text-white h-14 text-lg shadow-2xl hover:shadow-3xl transition-all duration-500 rounded-xl group">
+                        <Button className="cursor-pointer w-full bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:from-amber-600 hover:via-orange-600 hover:to-amber-700 text-white h-14 text-lg shadow-2xl hover:shadow-3xl hover-scale transition-all duration-500 rounded-xl group">
                           <Send className="mr-3 h-5 w-5 group-hover:scale-110 transition-transform duration-300" />
                           Enviar Mensagem
                           <Sparkles className="ml-3 h-5 w-5 group-hover:rotate-180 transition-transform duration-500" />
@@ -700,7 +1100,8 @@ export default function HomePage() {
                   </Card>
                 </div>
 
-                <div className="lg:col-span-1 order-1 lg:order-2 scroll-animate fade-left">
+                {/* Outras formas de contato */}
+                <div className="lg:col-span-1 order-1 lg:order-2 scroll-animate fade-up lg:fade-left">
                   <div className="sticky top-8 space-y-8">
                     <div>
                       <h3 className="text-2xl font-black text-slate-900 mb-6 flex items-center">
@@ -713,28 +1114,28 @@ export default function HomePage() {
                           {
                             icon: Mail,
                             title: "E-mail",
-                            content: "contato@vessel.com",
+                            content: "contato@vesselbr.com",
                             gradient: "from-amber-500 to-orange-600",
                             delay: "stagger-1",
                           },
                           {
                             icon: Phone,
                             title: "Telefone",
-                            content: "+55 (11) 99999-9999",
+                            content: "(11) 98958-9292",
                             gradient: "from-blue-500 to-indigo-600",
                             delay: "stagger-2",
                           },
                           {
-                            icon: MapPin,
-                            title: "Localização",
-                            content: "São Paulo, SP - Brasil",
-                            gradient: "from-emerald-500 to-teal-600",
+                            icon: InstagramIcon,
+                            title: "Instagram",
+                            content: "@vessel.br",
+                            gradient: "from-pink-500 to-purple-600",
                             delay: "stagger-3",
                           },
                         ].map((contact, index) => (
                           <Card
                             key={index}
-                            className={`border-0 shadow-xl hover:shadow-2xl transition-all duration-500 group hover:-translate-y-2 scroll-animate fade-up ${contact.delay}`}
+                            className={`border-0 shadow-xl hover:shadow-2xl hover-lift transition-all duration-500 group scroll-animate fade-up ${contact.delay}`}
                           >
                             <CardContent className="p-6">
                               <div className="flex items-center space-x-4">
@@ -757,188 +1158,13 @@ export default function HomePage() {
                         ))}
                       </div>
                     </div>
-
-                    <div className="bg-gradient-to-br from-amber-50 via-orange-50 to-amber-100 rounded-2xl p-6 border-2 border-amber-200 shadow-xl scroll-animate scale-up stagger-4">
-                      <div className="flex items-center mb-4">
-                        <div className="w-10 h-10 bg-gradient-to-br from-amber-500 to-orange-600 rounded-xl flex items-center justify-center mr-3 floating">
-                          <Timer className="w-5 h-5 text-white" />
-                        </div>
-                        <h4 className="text-xl font-black text-slate-900">
-                          Horário de Atendimento
-                        </h4>
-                      </div>
-                      <div className="space-y-3 text-slate-700">
-                        <div className="flex justify-between items-center p-3 bg-white/80 rounded-lg">
-                          <span className="font-medium text-sm">
-                            Segunda a Sexta:
-                          </span>
-                          <span className="text-amber-700 font-medium text-sm">
-                            9h às 18h
-                          </span>
-                        </div>
-                        <div className="flex justify-between items-center p-3 bg-white/80 rounded-lg">
-                          <span className="font-medium text-sm">Sábado:</span>
-                          <span className="text-amber-700 font-medium text-sm">
-                            9h às 14h
-                          </span>
-                        </div>
-                        <div className="flex justify-between items-center p-3 bg-white/80 rounded-lg">
-                          <span className="font-medium text-sm">Domingo:</span>
-                          <span className="text-slate-500 font-medium text-sm">
-                            Fechado
-                          </span>
-                        </div>
-                      </div>
-                    </div>
                   </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Enhanced Instagram Section */}
-        <section className="py-32 bg-gradient-to-br from-indigo-600 via-purple-600 to-blue-700 text-white relative overflow-hidden">
-          <div className="absolute inset-0">
-            <div className="absolute top-0 left-0 w-full h-full opacity-20">
-              <div className="absolute top-20 left-20 w-80 h-80 bg-gradient-to-br from-pink-400 to-purple-500 rounded-full blur-3xl floating"></div>
-              <div className="absolute bottom-20 right-20 w-96 h-96 bg-gradient-to-br from-blue-400 to-indigo-500 rounded-full blur-3xl floating-delayed"></div>
-              <div
-                className="absolute top-1/2 left-1/2 w-64 h-64 bg-gradient-to-br from-purple-400 to-pink-500 rounded-full blur-3xl parallax"
-                data-speed="0.4"
-              ></div>
-            </div>
-          </div>
-
-          <div className="container mx-auto px-4 text-center relative">
-            <div className="scroll-animate fade-up">
-              <Badge className="bg-white/10 backdrop-blur-sm border border-white/30 text-white mb-8 px-6 py-3 text-base shadow-xl">
-                <Instagram className="w-4 h-4 mr-2" />
-                Comunidade
-              </Badge>
-              <h2 className="text-2xl lg:text-4xl font-black mb-8 text-white">
-                VAMOS EMBARCAR
-                <br />
-                <span className="bg-gradient-to-r from-pink-300 via-purple-300 to-indigo-300 bg-clip-text text-transparent">
-                  NESSA JORNADA!
-                </span>
-              </h2>
-              <p className="text-lg text-blue-100 mb-12 max-w-4xl mx-auto font-light">
-                Junte-se à nossa comunidade exclusiva e acompanhe as últimas
-                novidades, dicas e sucessos dos nossos parceiros!
-              </p>
-            </div>
-
-            <div className="max-w-2xl mx-auto scroll-animate scale-up stagger-2">
-              <Button
-                size="lg"
-                className="bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 hover:from-pink-600 hover:via-purple-600 hover:to-indigo-600 text-white mb-12 w-full shadow-3xl hover:shadow-4xl transition-all duration-500 h-14 text-lg rounded-xl group"
-              >
-                <Instagram className="mr-3 h-5 w-5 group-hover:scale-110 transition-transform duration-300" />
-                SIGA-NOS NO INSTAGRAM
-                <Sparkles className="ml-3 h-5 w-5 group-hover:rotate-180 transition-transform duration-500" />
-              </Button>
-
-              <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 border border-white/20 shadow-3xl group hover:shadow-4xl transition-all duration-700">
-                <div className="w-full h-48 bg-gradient-to-br from-purple-400/20 to-pink-400/20 rounded-xl mb-4 shadow-2xl flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
-                  <div className="text-center">
-                    <Instagram className="w-12 h-12 text-white/80 mx-auto mb-3 floating" />
-                    <p className="text-white/80 text-base font-medium">
-                      @vessel.solution
-                    </p>
-                  </div>
-                </div>
-                <p className="text-purple-100 text-lg font-bold">
-                  Navegando rumo ao sucesso do seu negócio
-                </p>
-                <div className="flex items-center justify-center mt-4 space-x-2">
-                  {[1, 2, 3, 4, 5].map((i) => (
-                    <Star
-                      key={i}
-                      className="w-5 h-5 fill-yellow-400 text-yellow-400"
-                    />
-                  ))}
-                  <span className="text-white font-medium ml-2 text-sm">
-                    +10k seguidores
-                  </span>
                 </div>
               </div>
             </div>
           </div>
         </section>
       </main>
-
-      {/* Enhanced Footer */}
-      <footer className="bg-gradient-to-br from-slate-900 via-slate-800 to-indigo-900 text-white py-20 relative overflow-hidden">
-        <div className="absolute inset-0">
-          <div className="absolute top-0 left-0 w-full h-full opacity-10">
-            <div className="absolute top-20 left-20 w-72 h-72 bg-gradient-to-br from-amber-400 to-orange-500 rounded-full blur-3xl floating"></div>
-            <div className="absolute bottom-20 right-20 w-80 h-80 bg-gradient-to-br from-blue-400 to-purple-500 rounded-full blur-3xl floating-delayed"></div>
-          </div>
-        </div>
-
-        <div className="container mx-auto px-4 relative">
-          <div className="text-center space-y-10 scroll-animate fade-up">
-            <div className="flex items-center justify-center space-x-4 group">
-              <div className="flex items-center space-x-2">
-                <img
-                  src="/logo-white.svg"
-                  alt="VESSEL Logo"
-                  className="h-15 w-auto"
-                />
-              </div>
-            </div>
-
-            <p className="text-slate-300 max-w-4xl mx-auto text-lg leading-relaxed font-light">
-              A VESSEL É A ESCOLHA INTELIGENTE PARA NEGÓCIOS NA ÁREA DA BELEZA
-              QUE BUSCAM CRESCER DE MANEIRA ORGANIZADA, EFICIENTE E INOVADORA.
-            </p>
-
-            <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-              {[
-                {
-                  icon: Mail,
-                  title: "E-mail",
-                  content: "contato@vessel.com",
-                  gradient: "from-amber-500 to-orange-600",
-                },
-                {
-                  icon: Phone,
-                  title: "Telefone",
-                  content: "+55 (11) 99999-9999",
-                  gradient: "from-blue-500 to-indigo-600",
-                },
-                {
-                  icon: MapPin,
-                  title: "Localização",
-                  content: "São Paulo, SP - Brasil",
-                  gradient: "from-emerald-500 to-teal-600",
-                },
-              ].map((contact, index) => (
-                <div key={index} className="text-center group">
-                  <div
-                    className={`w-14 h-14 bg-gradient-to-br ${contact.gradient} rounded-xl flex items-center justify-center mx-auto mb-3 shadow-2xl floating group-hover:scale-110 transition-transform duration-500`}
-                  >
-                    <contact.icon className="h-6 w-6 text-white" />
-                  </div>
-                  <h4 className="font-black text-lg mb-2 text-white">
-                    {contact.title}
-                  </h4>
-                  <p className="text-slate-300 text-base">{contact.content}</p>
-                </div>
-              ))}
-            </div>
-
-            <div className="pt-10 border-t border-slate-700/50">
-              <div className="flex items-center justify-center">
-                <p className="text-slate-400 text-base text-center">
-                  ©{currentYear} VESSEL SOLUTION - TODOS OS DIREITOS RESERVADOS.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }
