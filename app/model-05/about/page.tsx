@@ -391,7 +391,7 @@ export default function AboutPage() {
             </div>
 
             <div className="text-center mt-12 md:mt-20 scroll-animate fade-up stagger-4">
-              <Link href="/">
+              <Link href="/model-05">
                 <Button
                   size="lg"
                   className="cursor-pointer bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:from-amber-600 hover:via-orange-600 hover:to-amber-700 text-white shadow-2xl hover:shadow-3xl transition-all duration-500 px-8 md:px-12 py-4 md:py-6 text-base md:text-lg rounded-2xl group"
