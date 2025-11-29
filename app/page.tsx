@@ -2,7 +2,15 @@
 
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Monitor, Palette, Rocket, Sparkles, Star, Wrench } from "lucide-react";
+import {
+  Monitor,
+  Palette,
+  Rocket,
+  Sparkles,
+  Star,
+  Wrench,
+  Smartphone,
+} from "lucide-react";
 
 const models = [
   { label: "Modelo 1", href: "/model-01", icon: Monitor },
@@ -11,6 +19,7 @@ const models = [
   { label: "Modelo 4", href: "/model-04", icon: Sparkles },
   { label: "Modelo 5", href: "/model-05", icon: Star },
   { label: "Modelo 6", href: "/model-06", icon: Wrench },
+  { label: "App", href: "/app-page", icon: Smartphone },
 ];
 
 export default function ModelsPage() {
