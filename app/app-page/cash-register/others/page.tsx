@@ -102,14 +102,14 @@ export default function OthersPage() {
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
               <div>
                 <h1 className="text-3xl font-bold text-slate-900 flex items-center gap-3">
-                  <Package className="w-8 h-8 text-orange-600" />
+                  <Package className="w-8 h-8 text-blue-600" />
                   Outros
                 </h1>
                 <p className="text-slate-600 mt-1">
                   Gerenciamento de itens diversos
                 </p>
               </div>
-              <Button className="bg-gradient-to-r from-orange-600 to-orange-700 hover:from-orange-700 hover:to-orange-800 text-white rounded-lg px-6 py-3 font-medium shadow-lg hover:shadow-xl transition-all duration-200 flex items-center gap-2">
+              <Button className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-lg px-6 py-3 font-medium shadow-lg hover:shadow-xl transition-all duration-200 flex items-center gap-2">
                 <FileText className="w-4 h-4" />
                 Novo Item
               </Button>
@@ -117,34 +117,34 @@ export default function OthersPage() {
 
             {/* Stats Cards */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
-              <div className="bg-gradient-to-br from-orange-50 to-orange-100 rounded-xl p-4 border border-orange-200">
+              <div className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-medium text-orange-900">
+                    <p className="text-sm font-medium text-gray-600">
                       Total de Itens
                     </p>
-                    <p className="text-2xl font-bold text-orange-700 mt-1">
+                    <p className="text-2xl font-bold text-gray-900 mt-1">
                       {filteredData.length}
                     </p>
                   </div>
-                  <div className="w-12 h-12 bg-orange-200 rounded-full flex items-center justify-center">
-                    <TrendingUp className="w-6 h-6 text-orange-700" />
+                  <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                    <TrendingUp className="w-6 h-6 text-blue-600" />
                   </div>
                 </div>
               </div>
 
-              <div className="bg-gradient-to-br from-emerald-50 to-emerald-100 rounded-xl p-4 border border-emerald-200">
+              <div className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-medium text-emerald-900">
+                    <p className="text-sm font-medium text-gray-600">
                       Valor Total
                     </p>
-                    <p className="text-2xl font-bold text-emerald-700 mt-1">
+                    <p className="text-2xl font-bold text-blue-600 mt-1">
                       R$ {totalValue.toFixed(2)}
                     </p>
                   </div>
-                  <div className="w-12 h-12 bg-emerald-200 rounded-full flex items-center justify-center">
-                    <DollarSign className="w-6 h-6 text-emerald-700" />
+                  <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                    <DollarSign className="w-6 h-6 text-blue-600" />
                   </div>
                 </div>
               </div>
@@ -198,7 +198,7 @@ export default function OthersPage() {
 
                     <div className="text-right">
                       <p className="text-sm text-slate-600">Valor</p>
-                      <p className="text-2xl font-bold text-emerald-600">
+                      <p className="text-2xl font-bold text-blue-600">
                         R$ {item.value.toFixed(2)}
                       </p>
                     </div>
@@ -241,7 +241,7 @@ export default function OthersPage() {
                     <Button
                       variant="outline"
                       size="sm"
-                      className="border-emerald-300 text-emerald-600 hover:bg-emerald-50 flex items-center gap-1"
+                      className="border-gray-300 text-gray-600 hover:bg-gray-50 flex items-center gap-1"
                     >
                       <Edit className="w-4 h-4" />
                       Editar

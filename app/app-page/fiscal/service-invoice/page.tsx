@@ -184,17 +184,19 @@ export default function NFSePage() {
           }
         }
       `}</style>
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-50">
+      <div className="min-h-screen bg-gray-50">
         {/* Header Section */}
-        <div className="bg-white border-b border-slate-200 shadow-sm sticky top-0 z-20">
+        <div className="bg-gradient-to-r from-white via-gray-50 to-white border-b border-gray-200 shadow-md">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
               <div>
-                <h1 className="text-3xl font-bold text-slate-900 flex items-center gap-3">
-                  <Receipt className="w-8 h-8 text-blue-600" />
+                <h1 className="text-3xl font-bold bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent flex items-center gap-3">
+                  <div className="w-10 h-10 bg-gradient-to-br from-gray-700 to-gray-900 rounded-lg flex items-center justify-center shadow-md">
+                    <Receipt className="w-6 h-6 text-white" />
+                  </div>
                   NFS-e
                 </h1>
-                <p className="text-slate-600 mt-1">
+                <p className="text-gray-600 mt-1">
                   Nota Fiscal de Serviço Eletrônica
                 </p>
               </div>
@@ -202,66 +204,66 @@ export default function NFSePage() {
 
             {/* Stats Cards */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
-              <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-4 border border-blue-200">
+              <div className="bg-white rounded-lg p-4 border border-gray-200 shadow-sm">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-medium text-blue-900">
+                    <p className="text-sm font-medium text-gray-600">
                       NFS-e Abertas
                     </p>
-                    <p className="text-2xl font-bold text-blue-700 mt-1">
+                    <p className="text-2xl font-bold text-gray-900 mt-1">
                       {openCount}
                     </p>
                   </div>
-                  <div className="w-12 h-12 bg-blue-200 rounded-full flex items-center justify-center">
-                    <Clock className="w-6 h-6 text-blue-700" />
+                  <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center">
+                    <Clock className="w-6 h-6 text-gray-600" />
                   </div>
                 </div>
               </div>
 
-              <div className="bg-gradient-to-br from-emerald-50 to-emerald-100 rounded-xl p-4 border border-emerald-200">
+              <div className="bg-white rounded-lg p-4 border border-gray-200 shadow-sm">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-medium text-emerald-900">
+                    <p className="text-sm font-medium text-gray-600">
                       Total Aberto
                     </p>
-                    <p className="text-2xl font-bold text-emerald-700 mt-1">
+                    <p className="text-2xl font-bold text-gray-900 mt-1">
                       R$ {totalOpen.toFixed(2)}
                     </p>
                   </div>
-                  <div className="w-12 h-12 bg-emerald-200 rounded-full flex items-center justify-center">
-                    <DollarSign className="w-6 h-6 text-emerald-700" />
+                  <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center">
+                    <DollarSign className="w-6 h-6 text-gray-600" />
                   </div>
                 </div>
               </div>
 
-              <div className="bg-gradient-to-br from-indigo-50 to-indigo-100 rounded-xl p-4 border border-indigo-200">
+              <div className="bg-white rounded-lg p-4 border border-gray-200 shadow-sm">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-medium text-indigo-900">
+                    <p className="text-sm font-medium text-gray-600">
                       NFS-e Emitidas
                     </p>
-                    <p className="text-2xl font-bold text-indigo-700 mt-1">
+                    <p className="text-2xl font-bold text-gray-900 mt-1">
                       {issuedCount}
                     </p>
                   </div>
-                  <div className="w-12 h-12 bg-indigo-200 rounded-full flex items-center justify-center">
-                    <CheckCircle2 className="w-6 h-6 text-indigo-700" />
+                  <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center">
+                    <CheckCircle2 className="w-6 h-6 text-gray-600" />
                   </div>
                 </div>
               </div>
 
-              <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-4 border border-purple-200">
+              <div className="bg-white rounded-lg p-4 border border-gray-200 shadow-sm">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-medium text-purple-900">
+                    <p className="text-sm font-medium text-gray-600">
                       Total Emitido
                     </p>
-                    <p className="text-2xl font-bold text-purple-700 mt-1">
+                    <p className="text-2xl font-bold text-gray-900 mt-1">
                       R$ {totalIssued.toFixed(2)}
                     </p>
                   </div>
-                  <div className="w-12 h-12 bg-purple-200 rounded-full flex items-center justify-center">
-                    <TrendingUp className="w-6 h-6 text-purple-700" />
+                  <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center">
+                    <TrendingUp className="w-6 h-6 text-gray-600" />
                   </div>
                 </div>
               </div>
@@ -272,35 +274,35 @@ export default function NFSePage() {
         {/* Main Content */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           {/* Filters */}
-          <div className="bg-white rounded-xl shadow-sm border border-slate-200 mb-6 overflow-hidden">
+          <div className="bg-white rounded-lg shadow-sm border border-gray-200 mb-6 overflow-hidden">
             <button
               onClick={() => setFilterExpanded(!filterExpanded)}
-              className="w-full flex items-center justify-between px-6 py-4 hover:bg-slate-50 transition-colors"
+              className="w-full flex items-center justify-between px-6 py-4 hover:bg-gray-50 transition-colors"
             >
               <div className="flex items-center gap-3">
-                <Search className="w-5 h-5 text-slate-600" />
-                <span className="font-medium text-slate-900">
+                <Search className="w-5 h-5 text-gray-600" />
+                <span className="font-medium text-gray-900">
                   Filtro de Pesquisa
                 </span>
               </div>
               {filterExpanded ? (
-                <ChevronUp className="w-5 h-5 text-slate-600" />
+                <ChevronUp className="w-5 h-5 text-gray-600" />
               ) : (
-                <ChevronDown className="w-5 h-5 text-slate-600" />
+                <ChevronDown className="w-5 h-5 text-gray-600" />
               )}
             </button>
 
             {filterExpanded && (
-              <div className="px-6 pb-6 pt-2 border-t border-slate-100">
+              <div className="px-6 pb-6 pt-2 border-t border-gray-100">
                 <div className="space-y-4">
                   <div>
-                    <label className="block text-sm font-medium text-slate-700 mb-2">
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
                       Emitente
                     </label>
                     <select
                       value={selectedIssuer}
                       onChange={(e) => setSelectedIssuer(e.target.value)}
-                      className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:border-blue-500 focus:ring-blue-500 bg-white"
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:border-gray-500 focus:ring-gray-500 bg-white"
                     >
                       <option value="">Selecione um emitente</option>
                       <option value="salao1">Salão Beleza Total LTDA</option>
@@ -311,31 +313,31 @@ export default function NFSePage() {
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm font-medium text-slate-700 mb-2">
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
                         Data inicial
                       </label>
                       <Input
                         type="date"
                         value={startDate}
                         onChange={(e) => setStartDate(e.target.value)}
-                        className="border-slate-300 focus:border-blue-500 focus:ring-blue-500"
+                        className="border-gray-300 focus:border-gray-500 focus:ring-gray-500"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-slate-700 mb-2">
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
                         Data final
                       </label>
                       <Input
                         type="date"
                         value={endDate}
                         onChange={(e) => setEndDate(e.target.value)}
-                        className="border-slate-300 focus:border-blue-500 focus:ring-blue-500"
+                        className="border-gray-300 focus:border-gray-500 focus:ring-gray-500"
                       />
                     </div>
                   </div>
 
-                  <Button className="bg-slate-900 hover:bg-slate-800 text-white rounded-lg px-6 py-2 font-medium">
+                  <Button className="bg-gray-900 hover:bg-gray-800 text-white rounded-lg px-6 py-2 font-medium">
                     <Search className="w-4 h-4 mr-2" />
                     Pesquisar
                   </Button>
@@ -346,23 +348,23 @@ export default function NFSePage() {
 
           {/* Selected Total and Emit Button */}
           {selectedItems.length > 0 && activeTab === "open" && (
-            <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl shadow-sm border border-blue-200 mb-6 p-4">
+            <div className="bg-white rounded-lg shadow-sm border border-gray-300 mb-6 p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-slate-600">
+                  <p className="text-sm font-medium text-gray-600">
                     Total Selecionado
                   </p>
-                  <p className="text-2xl font-bold text-blue-700">
+                  <p className="text-2xl font-bold text-gray-900">
                     R$ {selectedTotal.toFixed(2)}
                   </p>
-                  <p className="text-xs text-slate-500 mt-1">
+                  <p className="text-xs text-gray-500 mt-1">
                     {selectedItems.length}{" "}
                     {selectedItems.length === 1
                       ? "nota selecionada"
                       : "notas selecionadas"}
                   </p>
                 </div>
-                <Button className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-lg px-6 py-3 font-medium shadow-lg flex items-center gap-2">
+                <Button className="bg-gray-900 hover:bg-gray-800 text-white rounded-lg px-6 py-3 font-medium shadow-lg flex items-center gap-2">
                   <Send className="w-4 h-4" />
                   Emitir Selecionados
                 </Button>
@@ -371,14 +373,14 @@ export default function NFSePage() {
           )}
 
           {/* Tabs */}
-          <div className="bg-white rounded-t-xl shadow-sm border border-slate-200 border-b-0">
+          <div className="bg-white rounded-t-lg shadow-sm border border-gray-200 border-b-0">
             <div className="flex">
               <button
                 onClick={() => setActiveTab("open")}
                 className={`flex-1 px-6 py-4 font-medium transition-all duration-200 flex items-center justify-center gap-2 ${
                   activeTab === "open"
-                    ? "bg-blue-50 text-blue-700 border-b-2 border-blue-600"
-                    : "text-slate-600 hover:bg-slate-50"
+                    ? "bg-gray-100 text-gray-900 border-b-2 border-gray-600"
+                    : "text-gray-600 hover:bg-gray-50"
                 }`}
               >
                 <Clock className="w-4 h-4" />
@@ -388,8 +390,8 @@ export default function NFSePage() {
                 onClick={() => setActiveTab("issued")}
                 className={`flex-1 px-6 py-4 font-medium transition-all duration-200 flex items-center justify-center gap-2 ${
                   activeTab === "issued"
-                    ? "bg-indigo-50 text-indigo-700 border-b-2 border-indigo-600"
-                    : "text-slate-600 hover:bg-slate-50"
+                    ? "bg-gray-100 text-gray-900 border-b-2 border-gray-600"
+                    : "text-gray-600 hover:bg-gray-50"
                 }`}
               >
                 <CheckCircle2 className="w-4 h-4" />
@@ -400,7 +402,7 @@ export default function NFSePage() {
 
           {/* Emit Button Above Table */}
           {activeTab === "open" && filteredData.length > 0 && (
-            <div className="bg-blue-600 p-4 flex items-center justify-between">
+            <div className="bg-gray-900 p-4 flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <input
                   type="checkbox"
@@ -413,7 +415,7 @@ export default function NFSePage() {
                 />
                 <span className="text-white font-medium">Selecionar todos</span>
               </div>
-              <Button className="bg-white hover:bg-slate-100 text-blue-700 rounded-lg px-6 py-2 font-medium shadow-md flex items-center gap-2">
+              <Button className="bg-white hover:bg-gray-100 text-gray-900 rounded-lg px-6 py-2 font-medium shadow-md flex items-center gap-2">
                 <Send className="w-4 h-4" />
                 Emitir Selecionados
               </Button>
@@ -421,10 +423,10 @@ export default function NFSePage() {
           )}
 
           {/* Table */}
-          <div className="bg-white rounded-b-xl shadow-sm border border-slate-200 overflow-hidden">
+          <div className="bg-white rounded-b-lg shadow-sm border border-gray-200 overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full">
-                <thead className="bg-gradient-to-r from-slate-800 to-slate-900 text-white">
+                <thead className="bg-gray-900 text-white">
                   <tr>
                     <th className="px-6 py-4 text-left text-sm font-semibold">
                       <input

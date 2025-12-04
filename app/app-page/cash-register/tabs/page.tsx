@@ -1,12 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, Fragment } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
   ChevronDown,
   ChevronUp,
-  Eye,
   Edit,
   Search,
   Calendar,
@@ -17,11 +16,7 @@ import {
   XCircle,
   Circle,
   Clock,
-  Info,
   ShoppingBag,
-  CreditCard,
-  Trash,
-  Receipt,
 } from "lucide-react";
 
 interface TabItem {
@@ -208,37 +203,37 @@ export default function TabsPage() {
                   </div>
                 </div>
 
-                <div className="bg-gradient-to-br from-emerald-50 to-emerald-100 rounded-xl p-4 border border-emerald-200">
+                <div className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-sm font-medium text-emerald-900">
+                      <p className="text-sm font-medium text-gray-600">
                         Total em Comandas
                       </p>
-                      <p className="text-2xl font-bold text-emerald-700 mt-1">
+                      <p className="text-2xl font-bold text-blue-600 mt-1">
                         R$ {totalOpen.toFixed(2)}
                       </p>
                     </div>
-                    <div className="w-12 h-12 bg-emerald-200 rounded-full flex items-center justify-center">
-                      <DollarSign className="w-6 h-6 text-emerald-700" />
+                    <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                      <DollarSign className="w-6 h-6 text-blue-600" />
                     </div>
                   </div>
                 </div>
 
-                <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-4 border border-purple-200">
+                <div className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-sm font-medium text-purple-900">
+                      <p className="text-sm font-medium text-gray-600">
                         Ticket Médio
                       </p>
-                      <p className="text-2xl font-bold text-purple-700 mt-1">
+                      <p className="text-2xl font-bold text-gray-900 mt-1">
                         R${" "}
                         {openCount > 0
                           ? (totalOpen / openCount).toFixed(2)
                           : "0.00"}
                       </p>
                     </div>
-                    <div className="w-12 h-12 bg-purple-200 rounded-full flex items-center justify-center">
-                      <User className="w-6 h-6 text-purple-700" />
+                    <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center">
+                      <User className="w-6 h-6 text-gray-600" />
                     </div>
                   </div>
                 </div>
@@ -376,300 +371,201 @@ export default function TabsPage() {
             </div>
           </div>
 
-          {/* Comandas List */}
-          <div className="space-y-4">
-            {filteredTabs.map((tab, index) => (
-              <div
-                key={tab.id}
-                className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden hover:shadow-md transition-shadow duration-200"
-                style={{
-                  animation: `slideIn 0.4s ease-out ${index * 50}ms both`,
-                }}
-              >
-                {/* Card Header */}
-                <div
-                  className={`px-6 py-4 border-b border-slate-200 ${
-                    tab.status === "open"
-                      ? "bg-gradient-to-r from-blue-50 to-white"
-                      : tab.status === "cancelled"
-                      ? "bg-gradient-to-r from-red-50 to-white"
-                      : "bg-gradient-to-r from-green-50 to-white"
-                  }`}
-                >
-                  <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
-                    <div className="flex items-center gap-4">
-                      <div
-                        className={`w-14 h-14 rounded-full flex items-center justify-center font-bold text-white text-lg shadow-lg ${
-                          tab.status === "open"
-                            ? "bg-gradient-to-br from-blue-500 to-blue-600"
-                            : tab.status === "cancelled"
-                            ? "bg-gradient-to-br from-red-500 to-red-600"
-                            : "bg-gradient-to-br from-green-500 to-green-600"
-                        }`}
-                      >
+          {/* Comandas List (Tabela) */}
+          <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-x-auto">
+            <table className="min-w-full divide-y divide-slate-200">
+              <thead className="bg-slate-50">
+                <tr>
+                  <th className="px-6 py-3 text-left text-sm font-medium text-slate-600">
+                    #
+                  </th>
+                  <th className="px-6 py-3 text-left text-sm font-medium text-slate-600">
+                    Cliente
+                  </th>
+                  <th className="px-6 py-3 text-left text-sm font-medium text-slate-600">
+                    Data
+                  </th>
+                  <th className="px-6 py-3 text-left text-sm font-medium text-slate-600">
+                    Serviços
+                  </th>
+                  <th className="px-6 py-3 text-right text-sm font-medium text-slate-600">
+                    Total
+                  </th>
+                  <th className="px-6 py-3 text-center text-sm font-medium text-slate-600">
+                    Status
+                  </th>
+                  <th className="px-6 py-3 text-center text-sm font-medium text-slate-600">
+                    Ações
+                  </th>
+                </tr>
+              </thead>
+
+              <tbody className="bg-white divide-y divide-slate-100">
+                {filteredTabs.map((tab) => (
+                  <Fragment key={tab.id}>
+                    <tr className="hover:bg-slate-50">
+                      <td className="px-6 py-4 align-middle text-sm text-slate-700">
                         #{tab.id}
-                      </div>
-                      <div>
-                        <h3 className="text-lg font-semibold text-slate-900 flex items-center gap-2">
-                          <User className="w-5 h-5 text-slate-600" />
+                      </td>
+                      <td className="px-6 py-4 align-middle">
+                        <div className="font-semibold text-slate-900">
                           {tab.client}
-                        </h3>
-                        <div className="flex flex-wrap items-center gap-3 text-sm text-slate-600 mt-1">
-                          <span className="flex items-center gap-1">
-                            <Calendar className="w-4 h-4" />
-                            {tab.date}
-                          </span>
-                          {tab.openedAt && (
-                            <span className="flex items-center gap-1">
-                              <Clock className="w-4 h-4" />
-                              Aberta às {tab.openedAt}
-                            </span>
-                          )}
-                          {tab.items && (
-                            <span className="flex items-center gap-1">
-                              <ShoppingBag className="w-4 h-4" />
-                              {tab.items.length}{" "}
-                              {tab.items.length === 1 ? "serviço" : "serviços"}
-                            </span>
-                          )}
                         </div>
-                      </div>
-                    </div>
-
-                    <div className="text-right">
-                      <p className="text-sm text-slate-600">Total</p>
-                      <p className="text-3xl font-bold text-blue-600">
-                        R$ {tab.total.toFixed(2)}
-                      </p>
-                      {tab.discount && tab.discount > 0 && (
-                        <p className="text-xs text-red-600 font-medium mt-1">
-                          Desconto: R$ {tab.discount.toFixed(2)}
-                        </p>
-                      )}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Card Content */}
-                <div className="p-6">
-                  {/* Action Buttons */}
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    <Button
-                      onClick={() =>
-                        setExpandedTab(expandedTab === tab.id ? null : tab.id)
-                      }
-                      variant="outline"
-                      className="text-sm border-slate-300 hover:bg-slate-50 flex items-center gap-2"
-                    >
-                      {expandedTab === tab.id ? (
-                        <>
-                          <ChevronUp className="w-4 h-4" />
-                          Ocultar Detalhes
-                        </>
-                      ) : (
-                        <>
-                          <ChevronDown className="w-4 h-4" />
-                          Ver Detalhes
-                        </>
-                      )}
-                    </Button>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="border-blue-300 text-blue-600 hover:bg-blue-50 flex items-center gap-1"
-                    >
-                      <Eye className="w-4 h-4" />
-                      Visualizar
-                    </Button>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="border-emerald-300 text-emerald-600 hover:bg-emerald-50 flex items-center gap-1"
-                    >
-                      <Edit className="w-4 h-4" />
-                      Editar
-                    </Button>
-                    {tab.status === "open" && (
-                      <>
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          className="border-purple-300 text-purple-600 hover:bg-purple-50 flex items-center gap-1"
-                        >
-                          <Receipt className="w-4 h-4" />
-                          Adicionar Serviço
-                        </Button>
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          className="border-green-300 text-green-600 hover:bg-green-50 flex items-center gap-1"
-                        >
-                          <CheckCircle2 className="w-4 h-4" />
-                          Finalizar
-                        </Button>
-                      </>
-                    )}
-                    {tab.status !== "closed" && (
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        className="border-red-300 text-red-600 hover:bg-red-50 flex items-center gap-1"
-                      >
-                        <Trash className="w-4 h-4" />
-                        {tab.status === "cancelled" ? "Excluir" : "Cancelar"}
-                      </Button>
-                    )}
-                  </div>
-
-                  {/* Quick Summary */}
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
-                    {tab.subtotal && (
-                      <div className="bg-slate-50 rounded-lg p-3">
-                        <p className="text-xs text-slate-600 mb-1">Subtotal</p>
-                        <p className="text-sm font-semibold text-slate-900">
-                          R$ {tab.subtotal.toFixed(2)}
-                        </p>
-                      </div>
-                    )}
-
-                    {tab.discount !== undefined && (
-                      <div className="bg-red-50 rounded-lg p-3">
-                        <p className="text-xs text-red-700 mb-1">Desconto</p>
-                        <p className="text-sm font-semibold text-red-900">
-                          R$ {tab.discount.toFixed(2)}
-                        </p>
-                      </div>
-                    )}
-
-                    {tab.closedAt && (
-                      <div className="bg-green-50 rounded-lg p-3">
-                        <p className="text-xs text-green-700 mb-1 flex items-center gap-1">
+                        <div className="text-xs text-slate-500 mt-1 flex items-center gap-2">
                           <Clock className="w-3 h-3" />
-                          Fechamento
-                        </p>
-                        <p className="text-sm font-semibold text-green-900">
-                          {tab.closedAt}
-                        </p>
-                      </div>
-                    )}
-
-                    {tab.paymentMethod && (
-                      <div className="bg-blue-50 rounded-lg p-3">
-                        <p className="text-xs text-blue-700 mb-1 flex items-center gap-1">
-                          <CreditCard className="w-3 h-3" />
-                          Pagamento
-                        </p>
-                        <p className="text-sm font-semibold text-blue-900">
-                          {tab.paymentMethod}
-                        </p>
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Expanded Details */}
-                  <div
-                    className={`overflow-hidden transition-all duration-500 ease-in-out ${
-                      expandedTab === tab.id
-                        ? "max-h-[2000px] opacity-100"
-                        : "max-h-0 opacity-0"
-                    }`}
-                  >
-                    {tab.items && (
-                      <div className="bg-gradient-to-br from-slate-50 to-white rounded-xl border border-slate-200 p-6">
-                        <h4 className="text-lg font-semibold text-slate-900 mb-4 flex items-center gap-2">
-                          <ShoppingBag className="w-5 h-5 text-slate-600" />
-                          Serviços da Comanda
-                        </h4>
-
-                        <div className="space-y-3">
-                          {tab.items.map((item, idx) => (
-                            <div
-                              key={idx}
-                              className="bg-white border border-slate-200 rounded-lg p-4 hover:border-blue-300 transition-colors"
-                              style={{
-                                animation: `slideIn 0.3s ease-out ${
-                                  idx * 0.05
-                                }s both`,
-                              }}
-                            >
-                              <div className="flex items-start justify-between gap-4">
-                                <div className="flex-1">
-                                  <h5 className="font-semibold text-slate-900">
-                                    {item.service}
-                                  </h5>
-                                  <p className="text-sm text-slate-600 mt-1 flex items-center gap-1">
-                                    <User className="w-3 h-3" />
-                                    Profissional: {item.professional}
-                                  </p>
-                                </div>
-                                <div className="text-right">
-                                  <p className="text-lg font-bold text-emerald-600">
-                                    R$ {item.value.toFixed(2)}
-                                  </p>
-                                  {item.discount && item.discount > 0 && (
-                                    <p className="text-xs text-red-600 font-medium mt-1">
-                                      Desc: R$ {item.discount.toFixed(2)}
-                                    </p>
-                                  )}
-                                </div>
-                              </div>
-                            </div>
-                          ))}
+                          <span>
+                            {tab.openedAt ? `Aberta às ${tab.openedAt}` : ""}
+                          </span>
                         </div>
+                      </td>
+                      <td className="px-6 py-4 align-middle text-sm text-slate-600">
+                        {tab.date}
+                      </td>
+                      <td className="px-6 py-4 align-middle text-sm text-slate-600">
+                        {tab.items?.length ?? 0}
+                      </td>
+                      <td className="px-6 py-4 align-middle text-right font-semibold text-blue-600">
+                        R$ {tab.total.toFixed(2)}
+                      </td>
+                      <td className="px-6 py-4 align-middle text-center">
+                        <span
+                          className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${
+                            tab.status === "open"
+                              ? "bg-blue-50 text-blue-700"
+                              : tab.status === "cancelled"
+                              ? "bg-red-50 text-red-700"
+                              : "bg-green-50 text-green-700"
+                          }`}
+                        >
+                          {tab.status === "open"
+                            ? "Aberta"
+                            : tab.status === "cancelled"
+                            ? "Cancelada"
+                            : "Finalizada"}
+                        </span>
+                      </td>
+                      <td className="px-6 py-4 align-middle text-center">
+                        <div className="flex items-center justify-center gap-2">
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="text-sm border-slate-300 hover:bg-slate-50 flex items-center gap-2"
+                            onClick={() =>
+                              setExpandedTab(
+                                expandedTab === tab.id ? null : tab.id
+                              )
+                            }
+                          >
+                            {expandedTab === tab.id ? (
+                              <>
+                                <ChevronUp className="w-4 h-4" />
+                                Ocultar
+                              </>
+                            ) : (
+                              <>
+                                <ChevronDown className="w-4 h-4" />
+                                Detalhes
+                              </>
+                            )}
+                          </Button>
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="border-gray-300 text-gray-600 hover:bg-gray-50 flex items-center gap-1"
+                          >
+                            <Edit className="w-4 h-4" />
+                            Editar
+                          </Button>
+                        </div>
+                      </td>
+                    </tr>
 
-                        {/* Total Summary */}
-                        <div className="mt-6 pt-4 border-t-2 border-slate-200">
-                          <div className="space-y-2">
-                            {tab.subtotal && (
-                              <div className="flex justify-between items-center">
-                                <span className="text-slate-600">
-                                  Subtotal:
-                                </span>
+                    {expandedTab === tab.id && (
+                      <tr>
+                        <td colSpan={7} className="px-6 py-4 bg-slate-50">
+                          <div className="mb-4">
+                            <h4 className="text-sm font-semibold text-slate-900 mb-3 flex items-center gap-2">
+                              <ShoppingBag className="w-4 h-4 text-slate-600" />
+                              Serviços da Comanda
+                            </h4>
+
+                            <div className="overflow-x-auto">
+                              <table className="w-full text-sm">
+                                <thead>
+                                  <tr className="text-left text-xs text-slate-500">
+                                    <th className="py-2">Serviço</th>
+                                    <th className="py-2">Profissional</th>
+                                    <th className="py-2 text-right">Valor</th>
+                                    <th className="py-2 text-right">
+                                      Desconto
+                                    </th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  {tab.items?.map((item, idx) => (
+                                    <tr
+                                      key={idx}
+                                      className="border-t border-slate-100"
+                                    >
+                                      <td className="py-3">{item.service}</td>
+                                      <td className="py-3 text-slate-600">
+                                        {item.professional}
+                                      </td>
+                                      <td className="py-3 text-right font-semibold text-slate-900">
+                                        R$ {item.value.toFixed(2)}
+                                      </td>
+                                      <td className="py-3 text-right text-red-600">
+                                        {item.discount
+                                          ? `R$ ${item.discount.toFixed(2)}`
+                                          : "-"}
+                                      </td>
+                                    </tr>
+                                  ))}
+                                </tbody>
+                              </table>
+                            </div>
+
+                            <div className="mt-4 border-t border-slate-200 pt-3 flex flex-col md:flex-row md:justify-end md:items-center gap-2">
+                              <div className="text-sm text-slate-600 md:mr-6">
+                                Subtotal:{" "}
                                 <span className="font-semibold text-slate-900">
-                                  R$ {tab.subtotal.toFixed(2)}
+                                  R$ {tab.subtotal?.toFixed(2) ?? "0.00"}
                                 </span>
                               </div>
-                            )}
-                            {tab.discount && tab.discount > 0 && (
-                              <div className="flex justify-between items-center">
-                                <span className="text-red-600">Desconto:</span>
-                                <span className="font-semibold text-red-600">
-                                  - R$ {tab.discount.toFixed(2)}
-                                </span>
+                              {tab.discount && tab.discount > 0 && (
+                                <div className="text-sm text-red-600">
+                                  Desconto:{" "}
+                                  <span className="font-semibold">
+                                    R$ {tab.discount.toFixed(2)}
+                                  </span>
+                                </div>
+                              )}
+                              <div className="text-lg font-bold text-blue-600 md:ml-6">
+                                Total: R$ {tab.total.toFixed(2)}
                               </div>
-                            )}
-                            <div className="flex justify-between items-center pt-2 border-t border-slate-200">
-                              <span className="text-lg font-semibold text-slate-900">
-                                Total:
-                              </span>
-                              <span className="text-2xl font-bold text-blue-600">
-                                R$ {tab.total.toFixed(2)}
-                              </span>
                             </div>
-                          </div>
-                        </div>
 
-                        {/* Observation */}
-                        {tab.observation && (
-                          <div className="mt-4 bg-blue-50 border border-blue-200 rounded-lg p-4">
-                            <p className="text-xs font-medium text-blue-900 uppercase mb-2 flex items-center gap-1">
-                              <Info className="w-3 h-3" />
-                              Observação
-                            </p>
-                            <p className="text-sm text-blue-900">
-                              {tab.observation}
-                            </p>
+                            {tab.observation && (
+                              <div className="mt-4 bg-blue-50 border border-blue-200 rounded-lg p-3">
+                                <p className="text-xs text-blue-900 font-medium mb-1">
+                                  Observação
+                                </p>
+                                <p className="text-sm text-blue-900">
+                                  {tab.observation}
+                                </p>
+                              </div>
+                            )}
                           </div>
-                        )}
-                      </div>
+                        </td>
+                      </tr>
                     )}
-                  </div>
-                </div>
-              </div>
-            ))}
+                  </Fragment>
+                ))}
+              </tbody>
+            </table>
 
             {filteredTabs.length === 0 && (
-              <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-12 text-center">
+              <div className="p-12 text-center">
                 <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <FileText className="w-8 h-8 text-slate-400" />
                 </div>

@@ -151,7 +151,7 @@ export default function AppPageLayout({
 }) {
   const pathname = usePathname();
   const [sidebarAberta, setSidebarAberta] = useState(true);
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(true);
   const [expandedMenus, setExpandedMenus] = useState<string[]>([]);
   const [perfilModalAberto, setPerfilModalAberto] = useState(false);
 
@@ -478,16 +478,35 @@ export default function AppPageLayout({
 
       {/* Main Content */}
       <div className="flex-1 flex flex-col h-full overflow-hidden">
-        {/* Header com menu mobile */}
-        <header className="lg:hidden bg-gradient-to-r from-indigo-600 to-indigo-700 text-white shadow-lg p-4 flex-shrink-0">
-          <Button
-            size="icon"
-            variant="ghost"
-            className="text-white hover:bg-white/20"
-            onClick={() => setSidebarAberta(true)}
-          >
-            <Menu className="w-6 h-6" />
-          </Button>
+        {/* Header Global - Visible em todas as páginas */}
+        <header className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white shadow-2xl border-b border-slate-700/50 flex-shrink-0 sticky top-0 z-40">
+          <div className="px-6 py-4 flex items-center justify-between">
+            {/* Menu Mobile */}
+            <Button
+              size="icon"
+              variant="ghost"
+              className="lg:hidden text-white hover:bg-white/20"
+              onClick={() => setSidebarAberta(true)}
+            >
+              <Menu className="w-6 h-6" />
+            </Button>
+
+            {/* Logo Centralizada */}
+            <div className="flex-1 flex justify-center">
+              <div className="bg-gradient-to-r from-slate-800 via-slate-900 to-slate-800 px-8 py-2 rounded-lg shadow-lg border border-slate-700/50">
+                <Image
+                  src="/logo-white.svg"
+                  alt="VESSEL Logo"
+                  width={120}
+                  height={32}
+                  className="w-auto h-8"
+                />
+              </div>
+            </div>
+
+            {/* Espaço para manter centralização (invisível no mobile) */}
+            <div className="lg:hidden w-10" />
+          </div>
         </header>
 
         {/* Content */}
