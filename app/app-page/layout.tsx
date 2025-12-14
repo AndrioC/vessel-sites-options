@@ -326,9 +326,11 @@ export default function AppPageLayout({
           >
             {!sidebarCollapsed ? (
               <>
-                <div className="w-10 h-10 bg-gradient-to-br from-indigo-600 to-indigo-700 rounded-full flex items-center justify-center shadow-lg ring-2 ring-indigo-500/20">
-                  <User className="w-5 h-5" />
-                </div>
+                <img
+                  src="https://i.pravatar.cc/150?img=12"
+                  alt="João Silva"
+                  className="w-10 h-10 rounded-full object-cover shadow-lg ring-2 ring-indigo-500/20"
+                />
                 <div className="flex-1 text-left">
                   <p className="text-sm font-medium text-white">João Silva</p>
                   <p className="text-xs text-slate-400">joao@email.com</p>
@@ -336,9 +338,11 @@ export default function AppPageLayout({
                 <ChevronRight className="w-4 h-4 text-slate-400" />
               </>
             ) : (
-              <div className="w-10 h-10 bg-gradient-to-br from-indigo-600 to-indigo-700 rounded-full flex items-center justify-center mx-auto shadow-lg ring-2 ring-indigo-500/20">
-                <User className="w-5 h-5" />
-              </div>
+              <img
+                src="https://i.pravatar.cc/150?img=12"
+                alt="João Silva"
+                className="w-10 h-10 rounded-full object-cover mx-auto shadow-lg ring-2 ring-indigo-500/20"
+              />
             )}
           </button>
         </div>
@@ -393,9 +397,11 @@ export default function AppPageLayout({
               {/* Avatar centralizado */}
               <div className="flex flex-col items-center mt-4">
                 <div className="relative">
-                  <div className="w-24 h-24 bg-white rounded-full flex items-center justify-center shadow-2xl ring-4 ring-white/30">
-                    <User className="w-12 h-12 text-indigo-600" />
-                  </div>
+                  <img
+                    src="https://i.pravatar.cc/150?img=12"
+                    alt="João Silva"
+                    className="w-24 h-24 rounded-full object-cover shadow-2xl ring-4 ring-white/30"
+                  />
                   <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-green-500 rounded-full border-4 border-white shadow-lg"></div>
                 </div>
               </div>

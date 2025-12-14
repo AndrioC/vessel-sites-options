@@ -459,7 +459,7 @@ const initialAppointments = [
 
 // Cores baseadas no tipo de serviço
 const typeColors = {
-  hair: "bg-purple-100 border-purple-300 text-purple-700",
+  hair: "bg-blue-100 border-blue-300 text-blue-700",
   barber: "bg-blue-100 border-blue-300 text-blue-700",
   nails: "bg-pink-100 border-pink-300 text-pink-700",
   makeup: "bg-rose-100 border-rose-300 text-rose-700",
@@ -1115,35 +1115,30 @@ const AgendaPage = () => {
       {/* --- HEADER LOCAL DA PÁGINA --- */}
       <header className="bg-gradient-to-r from-white via-gray-50 to-white border-b border-gray-200 px-6 py-3 flex items-center justify-between shadow-md">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-gradient-to-br from-purple-600 to-purple-800 rounded-lg flex items-center justify-center shadow-lg">
+          <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-800 rounded-lg flex items-center justify-center shadow-lg">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
               <path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm0 4c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm6 12H6v-1.4c0-2 4-3.1 6-3.1s6 1.1 6 3.1V19z" />
             </svg>
           </div>
           <div>
-            <h1 className="text-xl font-bold tracking-tight bg-gradient-to-r from-purple-600 to-purple-800 bg-clip-text text-transparent">
+            <h1 className="text-xl font-bold tracking-tight bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
               Agenda
             </h1>
             <p className="text-xs text-gray-500 font-medium">
               Gerenciamento de Horários
             </p>
           </div>
-          {selectedSlots.length === 0 && (
-            <div className="ml-3 text-xs bg-purple-50 text-purple-700 px-3 py-1.5 rounded-full border border-purple-200 font-medium shadow-sm">
-              💡 Arraste ou Shift+Clique para selecionar múltiplos slots
-            </div>
-          )}
         </div>
 
         <div className="flex items-center gap-3">
           <div className="flex items-center bg-gray-100 rounded-full px-3 py-1.5 border border-gray-200">
             <ChevronLeft
               onClick={previousDay}
-              className="cursor-pointer text-gray-500 hover:text-purple-600"
+              className="cursor-pointer text-gray-500 hover:text-blue-600"
               size={18}
             />
             <div
-              className="flex items-center gap-2 mx-3 text-sm font-semibold text-gray-700 cursor-pointer hover:text-purple-600"
+              className="flex items-center gap-2 mx-3 text-sm font-semibold text-gray-700 cursor-pointer hover:text-blue-600"
               onClick={() => setShowCalendar(!showCalendar)}
             >
               <Calendar size={14} />
@@ -1151,14 +1146,14 @@ const AgendaPage = () => {
             </div>
             <ChevronRight
               onClick={nextDay}
-              className="cursor-pointer text-gray-500 hover:text-purple-600"
+              className="cursor-pointer text-gray-500 hover:text-blue-600"
               size={18}
             />
           </div>
 
           <button
             onClick={goToToday}
-            className="bg-purple-100 hover:bg-purple-200 text-purple-700 px-3 py-1.5 rounded-full text-sm font-medium transition-colors"
+            className="bg-blue-100 hover:bg-blue-200 text-blue-700 px-3 py-1.5 rounded-full text-sm font-medium transition-colors"
           >
             Hoje
           </button>
@@ -1171,7 +1166,7 @@ const AgendaPage = () => {
               onClick={() => setShowFilters(!showFilters)}
               className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${
                 selectedGroups.length > 0 || selectedProfessionals.length > 0
-                  ? "bg-purple-100 text-purple-700 border border-purple-300"
+                  ? "bg-blue-100 text-blue-700 border border-blue-300"
                   : "bg-gray-100 text-gray-700 border border-gray-200 hover:bg-gray-200"
               }`}
             >
@@ -1179,7 +1174,7 @@ const AgendaPage = () => {
               Filtros
               {(selectedGroups.length > 0 ||
                 selectedProfessionals.length > 0) && (
-                <span className="bg-purple-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                <span className="bg-blue-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
                   {selectedGroups.length + selectedProfessionals.length}
                 </span>
               )}
@@ -1198,7 +1193,7 @@ const AgendaPage = () => {
                       selectedProfessionals.length > 0) && (
                       <button
                         onClick={clearFilters}
-                        className="text-xs text-purple-600 hover:text-purple-700 font-medium"
+                        className="text-xs text-blue-600 hover:text-blue-700 font-medium"
                       >
                         Limpar tudo
                       </button>
@@ -1220,7 +1215,7 @@ const AgendaPage = () => {
                             type="checkbox"
                             checked={selectedGroups.includes(group)}
                             onChange={() => toggleGroup(group)}
-                            className="w-4 h-4 text-purple-600 rounded focus:ring-purple-500"
+                            className="w-4 h-4 text-blue-600 rounded focus:ring-blue-500"
                           />
                           <span className="text-sm text-gray-700">{group}</span>
                           <span className="text-xs text-gray-400 ml-auto">
@@ -1247,7 +1242,7 @@ const AgendaPage = () => {
                             type="checkbox"
                             checked={selectedProfessionals.includes(emp.id)}
                             onChange={() => toggleProfessional(emp.id)}
-                            className="w-4 h-4 text-purple-600 rounded focus:ring-purple-500"
+                            className="w-4 h-4 text-blue-600 rounded focus:ring-blue-500"
                           />
                           <img
                             src={emp.avatar}
@@ -1305,7 +1300,7 @@ const AgendaPage = () => {
                     fill="none"
                     stroke="currentColor"
                     strokeWidth="2"
-                    className="text-purple-600"
+                    className="text-blue-600"
                   >
                     <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
                   </svg>
@@ -1335,7 +1330,7 @@ const AgendaPage = () => {
                       <tr className="hover:bg-gray-50">
                         <td className="px-3 py-2">
                           <div className="flex gap-1">
-                            <div className="w-6 h-6 rounded border-l-2 bg-purple-100 border-purple-300"></div>
+                            <div className="w-6 h-6 rounded border-l-2 bg-blue-100 border-blue-300"></div>
                             <div className="w-6 h-6 rounded border-l-2 bg-pink-100 border-pink-300"></div>
                             <div className="w-6 h-6 rounded border-l-2 bg-blue-100 border-blue-300"></div>
                           </div>
@@ -1349,7 +1344,7 @@ const AgendaPage = () => {
                       </tr>
                       <tr className="hover:bg-gray-50">
                         <td className="px-3 py-2">
-                          <div className="w-6 h-6 rounded border-l-2 bg-purple-100 border-purple-300 ring-2 ring-blue-400 ring-opacity-60 flex items-center justify-center">
+                          <div className="w-6 h-6 rounded border-l-2 bg-blue-100 border-blue-300 ring-2 ring-blue-400 ring-opacity-60 flex items-center justify-center">
                             <svg
                               width="10"
                               height="10"
@@ -1370,8 +1365,8 @@ const AgendaPage = () => {
                       </tr>
                       <tr className="hover:bg-gray-50">
                         <td className="px-3 py-2">
-                          <div className="w-6 h-6 rounded bg-purple-200 border-2 border-purple-400 flex items-center justify-center">
-                            <div className="w-2 h-2 bg-purple-600 rounded-full"></div>
+                          <div className="w-6 h-6 rounded bg-blue-200 border-2 border-blue-400 flex items-center justify-center">
+                            <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
                           </div>
                         </td>
                         <td className="px-3 py-2 font-medium text-gray-900">
@@ -1404,7 +1399,7 @@ const AgendaPage = () => {
                     <tbody className="divide-y divide-gray-100">
                       <tr className="hover:bg-gray-50">
                         <td className="px-3 py-2">
-                          <div className="w-4 h-4 rounded-full bg-purple-400"></div>
+                          <div className="w-4 h-4 rounded-full bg-blue-400"></div>
                         </td>
                         <td className="px-3 py-2 text-gray-700">Cabelo</td>
                       </tr>
@@ -1519,10 +1514,10 @@ const AgendaPage = () => {
             <input
               type="text"
               placeholder="Buscar cliente..."
-              className="pl-8 pr-3 py-1.5 text-sm border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-purple-500 w-40 transition-all"
+              className="pl-8 pr-3 py-1.5 text-sm border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 w-40 transition-all"
             />
           </div>
-          <button className="bg-gray-900 hover:bg-black text-white px-3 py-1.5 rounded-full text-sm font-medium flex items-center gap-2 transition-colors shadow-lg shadow-purple-200">
+          <button className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded-full text-sm font-medium flex items-center gap-2 transition-colors">
             <Plus size={14} />
             Novo Agendamento
           </button>
@@ -1595,15 +1590,15 @@ const AgendaPage = () => {
                     }}
                     className={`aspect-square rounded-lg text-sm font-medium transition-all relative ${
                       isSelected
-                        ? "bg-purple-600 text-white shadow-lg"
+                        ? "bg-blue-600 text-white shadow-lg"
                         : isToday
-                        ? "bg-purple-100 text-purple-700 border-2 border-purple-400"
+                        ? "bg-blue-100 text-blue-700 border-2 border-blue-400"
                         : "hover:bg-gray-100 text-gray-700"
                     }`}
                   >
                     {day.getDate()}
                     {hasAppointments && !isSelected && (
-                      <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-purple-600 rounded-full" />
+                      <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-blue-600 rounded-full" />
                     )}
                   </button>
                 );
@@ -1692,9 +1687,7 @@ const AgendaPage = () => {
                             index % 2 === 0
                               ? "border-r border-gray-300"
                               : "border-r border-gray-100"
-                          } ${
-                            isSelected ? "bg-purple-200 border-purple-400" : ""
-                          }`}
+                          } ${isSelected ? "bg-blue-200 border-blue-400" : ""}`}
                           onMouseDown={(e) => {
                             if (!hasAppointment && !e.shiftKey) {
                               handleMouseDown(emp.id, time);
@@ -1717,8 +1710,8 @@ const AgendaPage = () => {
 
                           {/* Indicador visual de seleção */}
                           {isSelected && !hasAppointment && (
-                            <div className="absolute inset-0 bg-purple-400/30 border-2 border-purple-500 pointer-events-none flex items-center justify-center">
-                              <div className="w-2 h-2 bg-purple-600 rounded-full" />
+                            <div className="absolute inset-0 bg-blue-400/30 border-2 border-blue-500 pointer-events-none flex items-center justify-center">
+                              <div className="w-2 h-2 bg-blue-600 rounded-full" />
                             </div>
                           )}
                         </div>
@@ -1735,7 +1728,7 @@ const AgendaPage = () => {
       {/* --- PAINEL DE SELEÇÃO MÚLTIPLA --- */}
       {selectedSlots.length > 0 && (
         <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-40 animate-slideUp">
-          <div className="bg-gradient-to-r from-purple-600 to-purple-700 text-white rounded-full shadow-2xl px-6 py-3 flex items-center gap-4">
+          <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-full shadow-2xl px-6 py-3 flex items-center gap-4">
             <div className="flex items-center gap-2">
               <div className="bg-white/20 rounded-full px-3 py-1 text-sm font-semibold">
                 {selectedSlots.length} slot{selectedSlots.length > 1 ? "s" : ""}{" "}
@@ -1761,7 +1754,7 @@ const AgendaPage = () => {
               </button>
               <button
                 onClick={() => setShowBulkCreate(true)}
-                className="px-4 py-2 bg-white text-purple-600 hover:bg-gray-100 rounded-full text-sm font-semibold transition-colors flex items-center gap-2 shadow-lg"
+                className="px-4 py-2 bg-white text-blue-600 hover:bg-gray-100 rounded-full text-sm font-semibold transition-colors flex items-center gap-2 shadow-lg"
               >
                 <Plus size={16} />
                 Criar Agendamento
@@ -1951,8 +1944,8 @@ const AgendaPage = () => {
               </div>
 
               {/* Observações */}
-              <div className="bg-purple-50 rounded-xl p-4">
-                <label className="text-xs font-semibold text-purple-900 uppercase tracking-wide">
+              <div className="bg-blue-50 rounded-xl p-4">
+                <label className="text-xs font-semibold text-blue-900 uppercase tracking-wide">
                   Observações
                 </label>
                 <p className="text-sm text-gray-700 mt-2">
